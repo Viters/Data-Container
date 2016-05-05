@@ -1,10 +1,11 @@
 /**
- * \file aghContainer.h
- * \author £ukasz Mielczarek, £ukasz Szczeœniak
- * \date 05|05|2016
- * \version 0.1
- * \brief Contains declaration and definitions of aghContainer template class.
+ * @file aghContainer.h
+ * @author £ukasz Mielczarek, £ukasz Szczeœniak
+ * @date 05|05|2016
+ * @version 0.1
+ * @brief Contains declaration and definitions of aghContainer template class.
  */
+
 // --------------------------------------------------------------------------------
 
 #ifndef DATA_CONTAINER_AGHCONTAINER_H
