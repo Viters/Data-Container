@@ -29,3 +29,11 @@
 
 # CLion Project Files
 .idea/
+.vs/
+*.sdf
+*.sln
+*.vcxproj
+*.filters
+*.opendb
+*.user
+Debug/
