@@ -27,8 +27,7 @@
 *.out
 *.app
 
-# CLion Project Files
-.idea/
+# VS Project Files
 .vs/
 *.sdf
 *.sln
@@ -37,3 +36,6 @@
 *.opendb
 *.user
 Debug/
+
+# Debugging tool
+catch.h
