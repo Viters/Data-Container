@@ -102,6 +102,13 @@ public:
     virtual bool contains(T const& _value, int _from = 0) const = 0;
 
     /**
+     * Print elements of container to output.
+     *
+     * @param output
+     */
+    virtual void print(ostream&) const = 0;
+
+    /**
      * Check if two containers are the same.
      *
      * @param another container
@@ -171,7 +178,7 @@ public:
      * @param container
      * @return reference to ostream object
      */
-    virtual ostream& operator<<(ostream&, aghContainer<T> const& right) = 0;
+    friend ostream& operator<<(ostream&, aghContainer<T> const& right);
 };
 
 // --------------------------------------------------------------------------------
@@ -230,5 +237,11 @@ aghContainer<T>& aghContainer<T>::operator<<(aghContainer<T> const& right) {
 }
 
 // --------------------------------------------------------------------------------
+
+template <typename T>
+ostream& operator<<(ostream&, aghContainer<T> const& right) {
+    right.print(out);
+    return out;
+}
 
 #endif //DATA_CONTAINER_AGHCONTAINER_H

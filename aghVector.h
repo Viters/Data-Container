@@ -109,6 +109,13 @@ public:
     bool contains(T const& _value, int _from = 0) const;
 
     /**
+     * Print elements of container to output.
+     *
+     * @param output
+     */
+    void print(ostream&) const;
+
+    /**
      * Check if two containers are the same.
      *
      * @param another container
@@ -122,7 +129,7 @@ public:
      * @param container
      * @return reference to ostream object
      */
-    ostream& operator<<(ostream&, aghVector<T> const& right);
+    friend ostream& operator<<(ostream&, aghVector<T> const& right);
 
 private:
     T* vector; //< Pointer to table that holds vector.
@@ -217,19 +224,13 @@ bool aghVector<T>::contains(T const& _value, int _from) const {
 // --------------------------------------------------------------------------------
 
 template <typename T>
+void aghVector<T>::print(ostream& out) const {
+}
+
+// --------------------------------------------------------------------------------
+
+template <typename T>
 bool aghVector<T>::equal(aghVector<T> const& right) const {
-}
-
-// --------------------------------------------------------------------------------
-
-template <typename T>
-ostream& aghVector<T>::operator<<(ostream&, aghVector<T> const& right) {
-}
-
-// --------------------------------------------------------------------------------
-
-template <typename T>
-void aghVector<T>::destroyVector() {
 }
 
 // --------------------------------------------------------------------------------
