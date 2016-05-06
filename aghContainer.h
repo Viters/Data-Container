@@ -22,65 +22,65 @@ template <typename T>
 class aghContainer {
 public:
     /**
-	 * Pure virtual destructor.
-	 */
+     * Pure virtual destructor.
+     */
     virtual ~aghContainer() = 0;
 
     /**
-	 * Add element to container.
-	 * @param new element
-	 */
+     * Add element to container.
+     * @param new element
+     */
     virtual void append(T const&) = 0;
 
     /**
-	 * Join two containers of the same type.
-	 * @param another container
-	 */
+     * Join two containers of the same type.
+     * @param another container
+     */
     virtual void append(aghContainer<T> const& right) = 0;
 
     /**
-	 * Insert an element at specified position.
-	 * @param position number
-	 * @param new element
-	 */
+     * Insert an element at specified position.
+     * @param position number
+     * @param new element
+     */
     virtual bool insert(const int, T const&) = 0;
 
     /**
-	 * Replace an element at specified position.
-	 * @param position number
-	 * @param new element
-	 */
+     * Replace an element at specified position.
+     * @param position number
+     * @param new element
+     */
     virtual bool replace(const int, T const&) = 0;
 
     /**
-	 * Get element at specified position.
-	 * @param position number
-	 */
+     * Get element at specified position.
+     * @param position number
+     */
     virtual T& at(const int) const = 0;
 
     /**
-	 * Get size of the container.
-	 * @return int size
-	 */
+     * Get size of the container.
+     * @return int size
+     */
     virtual int size(void) const = 0;
 
     /**
-	 * Remove element at specified position.
-	 * @param position number
-	 * @return bool
-	 */
+     * Remove element at specified position.
+     * @param position number
+     * @return bool
+     */
     virtual bool remove(const int) = 0;
 
     /**
-	 * Remove all elements from the container.
-	 */
+     * Remove all elements from the container.
+     */
     virtual void clear(void) = 0;
 
     /**
-	 * Check if there are any elements in container.
-	 * 
-	 * @return bool
-	 */
+     * Check if there are any elements in container.
+     * 
+     * @return bool
+     */
     virtual bool isEmpty(void) = 0;
 
     /**
@@ -171,29 +171,30 @@ public:
      * @param container
      * @return reference to ostream object
      */
-	virtual ostream& operator<<(ostream&, aghContainer<T> const& right) = 0;
+    virtual ostream& operator<<(ostream&, aghContainer<T> const& right) = 0;
 };
+
 // --------------------------------------------------------------------------------
 // End of aghContainer declaration.
 // --------------------------------------------------------------------------------
 
 template <typename T>
 bool aghContainer<T>::operator==(aghContainer<T> const& right) const {
-	return this->equal(right);
+    return this->equal(right);
 }
 
 // --------------------------------------------------------------------------------
 
 template <typename T>
 bool aghContainer<T>::operator!=(aghContainer<T> const& right) const {
-	return !(this->equal(right));
+    return !(this->equal(right));
 }
 
 // --------------------------------------------------------------------------------
 
 template <typename T>
 T& aghContainer<T>::operator[](const int n) const {
-	return this->at(n);
+    return this->at(n);
 }
 
 // --------------------------------------------------------------------------------
@@ -208,7 +209,7 @@ aghContainer<T>& aghContainer<T>::operator+=(T const& element) {
 
 template <typename T>
 aghContainer<T>& aghContainer<T>::operator+=(aghContainer<T> const& right) {
-	this->append(right);
+    this->append(right);
     return *this;
 }
 
@@ -216,7 +217,7 @@ aghContainer<T>& aghContainer<T>::operator+=(aghContainer<T> const& right) {
 
 template <typename T>
 aghContainer<T>& aghContainer<T>::operator<<(T const& element) {
-	this->append(element);
+    this->append(element);
     return *this;
 }
 
@@ -224,7 +225,7 @@ aghContainer<T>& aghContainer<T>::operator<<(T const& element) {
 
 template <typename T>
 aghContainer<T>& aghContainer<T>::operator<<(aghContainer<T> const& right) {
-	this->append(right);
+    this->append(right);
     return *this;
 }
 
