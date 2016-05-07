@@ -130,6 +130,14 @@ public:
      */
     bool equal(aghContainer<T> const& right) const;
 
+    /**
+     * Assignment operator
+     *
+     * @param another vector
+     * @return reference to the object
+     */
+    aghVector<T>& operator=(const aghVector<T>&);
+
 private:
     T* vector; //< Pointer to table that holds vector.
     unsigned int elements; //< Number of elements in vector.
@@ -151,7 +159,7 @@ aghVector<T>::aghVector() : vector(nullptr), elements(0) {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-aghVector<T>::aghVector(const aghVector<T>& another) vector(nullptr), elements(another.elements){
+aghVector<T>::aghVector(const aghVector<T>& another): vector(nullptr), elements(another.elements){
     this->vector = new T[this->elements];
     for(int i=0; i<this->elements; ++i)
         this->vector[i] = another.vector[i];
@@ -287,6 +295,17 @@ bool aghVector<T>::equal(aghContainer<T> const& right) const {
             return false;
 
     return true;
+}
+
+// --------------------------------------------------------------------------------
+
+template <typename T>
+aghVector<T>& aghVector<T>::operator=(const aghVector<T>& another){
+    this->destroyVector();
+    this->vector = new T[this->elements];
+    for(int i=0; i<this->elements; ++i)
+        this->vector[i] = another.vector[i];
+    return *this;
 }
 
 // --------------------------------------------------------------------------------
