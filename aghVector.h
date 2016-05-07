@@ -191,7 +191,7 @@ bool aghVector<T>::insert(const int index, T const& newValue) {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-bool aghVector<T>::replace(const int replacePos, T const& replaceValue) {
+bool aghVector<T>::replace(const int index, T const& newValue) {
     if(index < 0 || index >= this->elements)
        return false;
    this->vector[index] = newValue;
