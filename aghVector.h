@@ -30,6 +30,12 @@ public:
     aghVector();
 
     /**
+     * Copy constructor
+     * @param another vector
+     */
+    aghVector(const aghVector<T>&);
+
+    /**
      * Destructor.
      */
     ~aghVector();
@@ -140,6 +146,15 @@ private:
 
 template <typename T>
 aghVector<T>::aghVector() : vector(nullptr), elements(0) {
+}
+
+// --------------------------------------------------------------------------------
+
+template <typename T>
+aghVector<T>::aghVector(const aghVector<T>& another) vector(nullptr), elements(another.elements){
+    this->vector = new T[this->elements];
+    for(int i=0; i<this->elements; ++i)
+        this->vector[i] = another.vector[i];
 }
 
 // --------------------------------------------------------------------------------
