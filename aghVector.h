@@ -198,14 +198,15 @@ bool aghVector<T>::replace(const int, T const&) {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-T& aghVector<T>::at(const int) const {
+T& aghVector<T>::at(const int pos) const {
+    return this->vector[pos];
 }
 
 // --------------------------------------------------------------------------------
 
 template <typename T>
 int aghVector<T>::size() const {
-    return elements;
+    return this->elements;
 }
 
 // --------------------------------------------------------------------------------
@@ -218,12 +219,15 @@ bool aghVector<T>::remove(const int) {
 
 template <typename T>
 void aghVector<T>::clear() {
+    this->destroyVector;
+    this->elements = 0;
 }
 
 // --------------------------------------------------------------------------------
 
 template <typename T>
 bool aghVector<T>::isEmpty() {
+    return this->elements == 0;
 }
 
 // --------------------------------------------------------------------------------
