@@ -146,8 +146,7 @@ aghVector<T>::aghVector() : vector(nullptr), elements(0) {
 
 template <typename T>
 aghVector<T>::~aghVector() {
-    if(!this->vector)
-        this->destroyVector();
+    this->clear();
 }
 
 // --------------------------------------------------------------------------------
@@ -268,7 +267,6 @@ void aghVector<T>::destroyVector(){
     if(!this->vector)
         delete [] this->vector;
     this->vector = nullptr;
-    this->elements = 0;
 }
 
 #endif
