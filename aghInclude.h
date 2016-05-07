@@ -5,8 +5,8 @@
 #ifndef DATA_CONTAINER_AGHINCLUDE_H
 #define DATA_CONTAINER_AGHINCLUDE_H
 
+#include "aghException.h"
 #include "aghContainer.h"
 #include "aghVector.h"
-#include "aghException.h"
 
 #endif //DATA_CONTAINER_AGHINCLUDE_H
