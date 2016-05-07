@@ -237,7 +237,7 @@ bool aghVector<T>::remove(const int) {
 
 template <typename T>
 void aghVector<T>::clear() {
-    this->destroyVector;
+    this->destroyVector();
     this->elements = 0;
 }
 
@@ -252,12 +252,18 @@ bool aghVector<T>::isEmpty() {
 
 template <typename T>
 int aghVector<T>::indexOf(T const& _value, int _from) const {
+    for (int i = _from; i < this->elements; ++i)
+        if (this->vector[i] == _value)
+            return i;
+
+    return -1;
 }
 
 // --------------------------------------------------------------------------------
 
 template <typename T>
 bool aghVector<T>::contains(T const& _value, int _from) const {
+    return this->indexOf(_value, _from) != -1;
 }
 
 // --------------------------------------------------------------------------------
@@ -273,11 +279,11 @@ void aghVector<T>::print(ostream& out) const {
 
 template <typename T>
 bool aghVector<T>::equal(aghContainer<T> const& right) const {
-    bool sameSize = this->elements == right->elements;
+    bool sameSize = this->elements == right.elements;
     if (!sameSize)
         return false;
     for (int i = 0; i < this->elements; ++i)
-        if (this->vector[i] != right->vector[i])
+        if (this->vector[i] != right.vector[i])
             return false;
 
     return true;
