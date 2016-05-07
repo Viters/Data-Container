@@ -238,12 +238,18 @@ bool aghVector<T>::isEmpty() {
 
 template <typename T>
 int aghVector<T>::indexOf(T const& _value, int _from) const {
+    for (int i = _from; i < this->elements; ++i)
+        if (this->vector[i] == _value)
+            return i;
+
+    return -1;
 }
 
 // --------------------------------------------------------------------------------
 
 template <typename T>
 bool aghVector<T>::contains(T const& _value, int _from) const {
+    return this->indexOf(_value, _from) != -1;
 }
 
 // --------------------------------------------------------------------------------
