@@ -131,6 +131,13 @@ public:
     bool equal(aghContainer<T> const& right) const;
 
     /**
+     * Make copy of another vector.
+     *
+     * @param another container
+     */
+    void copy(aghVector<T> const& source) const;
+
+    /**
      * Assignment operator
      *
      * @param another vector
@@ -159,10 +166,8 @@ aghVector<T>::aghVector() : vector(nullptr), elements(0) {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-aghVector<T>::aghVector(const aghVector<T>& another): vector(nullptr), elements(another.elements){
-    this->vector = new T[this->elements];
-    for(int i=0; i<this->elements; ++i)
-        this->vector[i] = another.vector[i];
+aghVector<T>::aghVector(const aghVector<T>& another): vector(nullptr) {
+    this->copy(another);
 }
 
 // --------------------------------------------------------------------------------
@@ -301,11 +306,21 @@ bool aghVector<T>::equal(aghContainer<T> const& right) const {
 
 template <typename T>
 aghVector<T>& aghVector<T>::operator=(const aghVector<T>& another){
-    this->destroyVector();
-    this->vector = new T[this->elements];
-    for(int i=0; i<this->elements; ++i)
-        this->vector[i] = another.vector[i];
+    this->copy(another);
     return *this;
+}
+
+// --------------------------------------------------------------------------------
+
+template <typename T>
+void aghVector<T>::copy(const aghVector<T>& source){
+    if (vector)
+        this->destroyVector();
+    this->elements = source.elements;
+    this->vector = new T[this->elements];
+    for(int i = 0; i < this->elements; ++i)
+        this->vector[i] = another.vector[i];
+    return;
 }
 
 // --------------------------------------------------------------------------------
@@ -316,5 +331,7 @@ void aghVector<T>::destroyVector(){
         delete [] this->vector;
     this->vector = nullptr;
 }
+
+// --------------------------------------------------------------------------------
 
 #endif
