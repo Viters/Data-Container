@@ -39,3 +39,6 @@ Debug/
 
 # Debugging tool
 catch.h
+
+# Error log
+compiling_error.txt
