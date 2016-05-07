@@ -223,7 +223,7 @@ bool aghVector<T>::remove(const int) {
 
 template <typename T>
 void aghVector<T>::clear() {
-    this->destroyVector;
+    this->destroyVector();
     this->elements = 0;
 }
 
