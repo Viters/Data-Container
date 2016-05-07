@@ -147,14 +147,13 @@ template <typename T>
 aghVector<T>::~aghVector() {
     if(!this->vector)
         this->destroyVector();
-    this->vector = nullptr;
-    this->elements = 0;
 }
 
 // --------------------------------------------------------------------------------
 
 template <typename T>
 void aghVector<T>::append(T const&) {
+
 }
 
 // --------------------------------------------------------------------------------
@@ -230,5 +229,13 @@ bool aghVector<T>::equal(aghContainer<T> const& right) const {
 }
 
 // --------------------------------------------------------------------------------
+
+template<typename T>
+void aghVector<T>::destroyVector(){
+    if(!this->vector)
+        delete [] this->vector;
+    this->vector = nullptr;
+    this->elements = 0;
+}
 
 #endif
