@@ -12,6 +12,7 @@
 #define DATA_CONTAINER_AGHVECTOR_H
 
 #include "aghContainer.h"
+#include "aghException.h"
 #include <iostream>
 
 using namespace std;
@@ -152,8 +153,16 @@ aghVector<T>::~aghVector() {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-void aghVector<T>::append(T const&) {
-
+void aghVector<T>::append(T const& newValue) {
+    T* tmp = new T[elements+1];
+    if(!tmp)
+        throw aghException(1, "No memory that could be allocated", __FILE__, __LINE__);
+    for(int i = 0; i<elements; ++i)
+        tmp[i]=this->vector[i];
+    tmp[elements]=newValue;
+    delete [] this->vector;
+    this->vector = tmp;
+    ++elements;
 }
 
 // --------------------------------------------------------------------------------
@@ -165,7 +174,19 @@ void aghVector<T>::append(aghContainer<T> const& right) {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-bool aghVector<T>::insert(const int, T const&) {
+bool aghVector<T>::insert(const int index, T const& newValue) {
+    if(index>=elements || index<0)
+        return false;
+    T* tmp = new T[elements + 1];
+    if(!tmp)
+        throw aghException(1, "No memory that could be allocated", __FILE__, __LINE__);
+    for(int i=0; i<elements; ++i)
+        tmp[(i<index ? i : i+1)]=this->vector[i];
+    tmp[index] = newValue;
+    delete [] this->vector;
+    this->vector = tmp;
+    ++elements
+    return true;
 }
 
 // --------------------------------------------------------------------------------
