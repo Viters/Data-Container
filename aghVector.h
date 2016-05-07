@@ -145,6 +145,10 @@ aghVector<T>::aghVector() : vector(nullptr), elements(0) {
 
 template <typename T>
 aghVector<T>::~aghVector() {
+    if(!this->vector)
+        this->destroyVector();
+    this->vector = nullptr;
+    this->elements = 0;
 }
 
 // --------------------------------------------------------------------------------
