@@ -250,7 +250,7 @@ bool aghVector<T>::contains(T const& _value, int _from) const {
 
 template <typename T>
 void aghVector<T>::print(ostream& out) const {
-    for (int i = 0; i < elements; i++)
+    for (int i = 0; i < elements; ++i)
         out << vector[i] << endl;
     return;
 }
@@ -259,6 +259,14 @@ void aghVector<T>::print(ostream& out) const {
 
 template <typename T>
 bool aghVector<T>::equal(aghContainer<T> const& right) const {
+    bool sameSize = this->elements == right->elements;
+    if (!sameSize)
+        return false;
+    for (int i = 0; i < this->elements; ++i)
+        if (this->vector[i] != right->vector[i])
+            return false;
+
+    return true;
 }
 
 // --------------------------------------------------------------------------------
