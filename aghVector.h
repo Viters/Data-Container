@@ -192,7 +192,11 @@ bool aghVector<T>::insert(const int index, T const& newValue) {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-bool aghVector<T>::replace(const int, T const&) {
+bool aghVector<T>::replace(const int replacePos, T const& replaceValue) {
+    if(index < 0 || index >= this->elements)
+       return false;
+   this->vector[index] = newValue;
+   return true;
 }
 
 // --------------------------------------------------------------------------------
@@ -246,6 +250,9 @@ bool aghVector<T>::contains(T const& _value, int _from) const {
 
 template <typename T>
 void aghVector<T>::print(ostream& out) const {
+    for (int i = 0; i < elements; i++)
+        out << vector[i] << endl;
+    return;
 }
 
 // --------------------------------------------------------------------------------
