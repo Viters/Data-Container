@@ -184,6 +184,7 @@ T& aghVector<T>::at(const int) const {
 
 template <typename T>
 int aghVector<T>::size() const {
+    return elements;
 }
 
 // --------------------------------------------------------------------------------
