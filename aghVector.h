@@ -1,6 +1,6 @@
 /**
  * @file aghVector.h
- * @author £ukasz Mielczarek, £ukasz Szczeœniak
+ * @author ï¿½ukasz Mielczarek, ï¿½ukasz Szczeï¿½niak
  * @date 05|05|2016
  * @version 0.1
  * @brief Contains declaration and definitions of aghVector template class.
@@ -43,7 +43,7 @@ public:
      * Join two containers of the same type.
      * @param another container
      */
-    void append(aghVector<T> const& right);
+    void append(aghContainer<T> const& right);
 
     /**
      * Insert an element at specified position.
@@ -97,7 +97,7 @@ public:
      * @param start index (default = 0)
      * @return int index
      */
-    int indexOf(T const& _value, int _from = 0);
+    int indexOf(T const& _value, int _from = 0) const;
 
     /**
      * Check if element exists in container within specified range.
@@ -121,15 +121,7 @@ public:
      * @param another container
      * @return bool
      */
-    bool equal(aghVector<T> const& right) const;
-
-    /**
-     * Operator to print container elements.
-     *
-     * @param container
-     * @return reference to ostream object
-     */
-    friend ostream& operator<<(ostream&, aghVector<T> const& right);
+    bool equal(aghContainer<T> const& right) const;
 
 private:
     T* vector; //< Pointer to table that holds vector.
@@ -146,7 +138,7 @@ private:
 // --------------------------------------------------------------------------------
 
 template <typename T>
-aghVector<T>::aghVector() {
+aghVector<T>::aghVector() : vector(nullptr), elements(0) {
 }
 
 // --------------------------------------------------------------------------------
@@ -164,7 +156,7 @@ void aghVector<T>::append(T const&) {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-void aghVector<T>::append(aghVector<T> const& right) {
+void aghVector<T>::append(aghContainer<T> const& right) {
 }
 
 // --------------------------------------------------------------------------------
@@ -212,7 +204,7 @@ bool aghVector<T>::isEmpty() {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-int aghVector<T>::indexOf(T const& _value, int _from) {
+int aghVector<T>::indexOf(T const& _value, int _from) const {
 }
 
 // --------------------------------------------------------------------------------
@@ -230,7 +222,7 @@ void aghVector<T>::print(ostream& out) const {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-bool aghVector<T>::equal(aghVector<T> const& right) const {
+bool aghVector<T>::equal(aghContainer<T> const& right) const {
 }
 
 // --------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 /**
  * @file aghContainer.h
- * @author £ukasz Mielczarek, £ukasz Szczeœniak
+ * @author ï¿½ukasz Mielczarek, ï¿½ukasz Szczeï¿½niak
  * @date 05|05|2016
  * @version 0.1
  * @brief Contains declaration and definitions of aghContainer template class.
@@ -22,9 +22,9 @@ template <typename T>
 class aghContainer {
 public:
     /**
-     * Pure virtual destructor.
+     * Virtual destructor.
      */
-    virtual ~aghContainer() = 0;
+    virtual ~aghContainer() {}
 
     /**
      * Add element to container.
@@ -78,7 +78,7 @@ public:
 
     /**
      * Check if there are any elements in container.
-     * 
+     *
      * @return bool
      */
     virtual bool isEmpty(void) = 0;
