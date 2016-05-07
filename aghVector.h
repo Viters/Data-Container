@@ -276,7 +276,6 @@ void aghVector<T>::destroyVector(){
     if(!this->vector)
         delete [] this->vector;
     this->vector = nullptr;
-    this->elements = 0;
 }
 
 #endif
