@@ -24,21 +24,20 @@ using namespace std;
 * \date 15.04.2011
 * \brief The definition of aghException class that allows for exception handling
 */
-class aghException
-{
-  private:
+class aghException {
+private:
 
     int _errorCode;         ///< Stores an error code
     int _errorLine;         ///< Stores an error line (in the file)
     string _errorMessage;    ///< Stores an error message (for the user)
     string _errorFile;       ///< Stores a name of the file where an error occured
 
-    /// \brief resets the error parameters
-    ///
-    /// \return no values returns
+                             /// \brief resets the error parameters
+                             ///
+                             /// \return no values returns
     void reset(void);
 
-  public:
+public:
 
     /// \brief The default constructor
     aghException(void);
@@ -46,7 +45,7 @@ class aghException
     /// \brief The copying constructor
     ///
     /// \param __other - the source object
-    aghException(aghException const &__other);
+    aghException(aghException const& __other);
 
     /// \brief The class contructor
     ///
@@ -125,7 +124,7 @@ class aghException
     ///
     /// \param __other - the source object
     /// \return reference to this object
-    aghException &operator=(aghException const &__other);
+    aghException& operator=(aghException const& __other);
 };
 // --------------------------------------------------------------
 
@@ -134,7 +133,7 @@ class aghException
 /// \param __out - a given stream (display, file, etc.)
 /// \param __exception - a reference to the exception object
 /// \return returns a reference to the given stream
-ostream &operator<<(ostream &__out, aghException &__exception);
+ostream& operator<<(ostream& __out, aghException& __exception);
 // --------------------------------------------------------------
 
 #endif
