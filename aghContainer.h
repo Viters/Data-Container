@@ -239,7 +239,7 @@ aghContainer<T>& aghContainer<T>::operator<<(aghContainer<T> const& right) {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-ostream& operator<<(ostream&, aghContainer<T> const& right) {
+ostream& operator<<(ostream& out, aghContainer<T> const& right) {
     right.print(out);
     return out;
 }
