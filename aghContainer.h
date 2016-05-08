@@ -203,6 +203,14 @@ public:
 // --------------------------------------------------------------------------------
 
 template <typename T>
+aghContainer<T>& aghContainer<T>::operator=(const aghContainer<T>& right){
+    this->copy(right);
+    return *this;
+}
+
+// --------------------------------------------------------------------------------
+
+template <typename T>
 bool aghContainer<T>::operator==(const aghContainer<T>& right) const {
     return this->equal(right);
 }
@@ -260,12 +268,5 @@ ostream& operator<<(ostream& out, const aghContainer<Y>& right) {
     right.print(out);
     return out;
 }
-
-template <typename T>
-aghContainer<T>& aghContainer<T>::operator=(const aghContainer<T>& right){
-    this->copy(right);
-    return *this;
-}
-
 
 #endif //DATA_CONTAINER_AGHCONTAINER_H
