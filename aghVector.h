@@ -195,6 +195,17 @@ void aghVector<T>::append(const T& newValue) {
 
 template <typename T>
 void aghVector<T>::append(const aghContainer<T>& right) {
+    T* tmp = new T[this->elements + right.size()];
+    if(!tmp)
+        throw aghException(1, "No memory that could be allocated", __FILE__, __LINE__);
+    for(int i=0; i<this->elements+right.size(); ++i){
+        if(i<this->elements)
+            tmp[i] = this->vector[i];
+        else
+            tmp[i] = right.at(i-this->elements);
+    }
+    delete [] this->vector;
+    this->vector = tmp;
 }
 
 // --------------------------------------------------------------------------------
