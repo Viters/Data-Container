@@ -142,7 +142,7 @@ public:
      * @param another vector
      * @return reference to the object
      */
-    aghVector<T>& operator=(const aghContainer<T>&);
+    aghContainer<T>& operator=(const aghContainer<T>&);
 
 private:
     T* vector; //< Pointer to table that holds vector.
@@ -304,7 +304,7 @@ bool aghVector<T>::equal(const aghContainer<T>& right) const {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-aghVector<T>& aghVector<T>::operator=(const aghContainer<T>& another){
+aghContainer<T>& aghVector<T>::operator=(const aghContainer<T>& another){
     this->copy(another);
     return *this;
 }
