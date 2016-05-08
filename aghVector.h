@@ -319,7 +319,7 @@ void aghVector<T>::copy(const aghContainer<T>& source) {
     this->elements = source.size();
     this->vector = new T[this->elements];
     for(int i = 0; i < this->elements; ++i)
-        this->vector[i] = another.at(i);
+        this->vector[i] = source.at(i);
     return;
 }
 
