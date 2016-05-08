@@ -12,7 +12,6 @@
 #define DATA_CONTAINER_AGHVECTOR_H
 
 #include "aghContainer.h"
-#include "aghException.h"
 #include <iostream>
 
 using namespace std;
@@ -44,27 +43,27 @@ public:
      * Add element to container.
      * @param new element
      */
-    void append(T const&);
+    void append(const T&);
 
     /**
      * Join two containers of the same type.
      * @param another container
      */
-    void append(aghContainer<T> const& right);
+    void append(const aghContainer<T>& right);
 
     /**
      * Insert an element at specified position.
      * @param position number
      * @param new element
      */
-    bool insert(const int, T const&);
+    bool insert(const int, const T&);
 
     /**
      * Replace an element at specified position.
      * @param position number
      * @param new element
      */
-    bool replace(const int, T const&);
+    bool replace(const int, const T&);
 
     /**
      * Get element at specified position.
@@ -104,7 +103,7 @@ public:
      * @param start index (default = 0)
      * @return int index
      */
-    int indexOf(T const& _value, int _from = 0) const;
+    int indexOf(const T& _value, int _from = 0) const;
 
     /**
      * Check if element exists in container within specified range.
@@ -113,7 +112,7 @@ public:
      * @param start index (default = 0)
      * @return bool
      */
-    bool contains(T const& _value, int _from = 0) const;
+    bool contains(const T& _value, int _from = 0) const;
 
     /**
      * Print elements of container to output.
@@ -128,7 +127,7 @@ public:
      * @param another container
      * @return bool
      */
-    bool equal(aghContainer<T> const& right) const;
+    bool equal(const aghContainer<T>& right) const;
 
     /**
      * Make copy of another container.
@@ -180,7 +179,7 @@ aghVector<T>::~aghVector() {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-void aghVector<T>::append(T const& newValue) {
+void aghVector<T>::append(const T& newValue) {
     T* tmp = new T[elements+1];
     if(!tmp)
         throw aghException(1, "No memory that could be allocated", __FILE__, __LINE__);
@@ -195,13 +194,13 @@ void aghVector<T>::append(T const& newValue) {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-void aghVector<T>::append(aghContainer<T> const& right) {
+void aghVector<T>::append(const aghContainer<T>& right) {
 }
 
 // --------------------------------------------------------------------------------
 
 template <typename T>
-bool aghVector<T>::insert(const int index, T const& newValue) {
+bool aghVector<T>::insert(const int index, const T& newValue) {
     if(index>=elements || index<0)
         return false;
     T* tmp = new T[elements + 1];
@@ -219,7 +218,7 @@ bool aghVector<T>::insert(const int index, T const& newValue) {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-bool aghVector<T>::replace(const int index, T const& newValue) {
+bool aghVector<T>::replace(const int index, const T& newValue) {
     if(index < 0 || index >= this->elements)
        return false;
    this->vector[index] = newValue;
@@ -264,7 +263,7 @@ bool aghVector<T>::isEmpty() {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-int aghVector<T>::indexOf(T const& _value, int _from) const {
+int aghVector<T>::indexOf(const T& _value, int _from) const {
     for (int i = _from; i < this->elements; ++i)
         if (this->vector[i] == _value)
             return i;
@@ -275,7 +274,7 @@ int aghVector<T>::indexOf(T const& _value, int _from) const {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-bool aghVector<T>::contains(T const& _value, int _from) const {
+bool aghVector<T>::contains(const T& _value, int _from) const {
     return this->indexOf(_value, _from) != -1;
 }
 
@@ -291,7 +290,7 @@ void aghVector<T>::print(ostream& out) const {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-bool aghVector<T>::equal(aghContainer<T> const& right) const {
+bool aghVector<T>::equal(const aghContainer<T>& right) const {
     bool sameSize = this->size() == right.size();
     if (!sameSize)
         return false;
