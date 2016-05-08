@@ -1,6 +1,6 @@
 /**
  * @file aghVector.h
- * @author �ukasz Mielczarek, �ukasz Szcze�niak
+ * @author Łukasz Mielczarek, Łukasz Szcześniak
  * @date 05|05|2016
  * @version 0.1
  * @brief Contains declaration and definitions of aghVector template class.
@@ -145,6 +145,27 @@ public:
      */
     aghVector<T>& operator=(const aghVector<T>&);
 
+    /**
+     * Get vector pointer.
+     */
+    T* getVector() { return this->vector; }
+
+    /**
+     * Get elements.
+     */
+    unsigned int getElements() { return this->elements; }
+
+    /**
+     * Set vector pointer.
+     */
+    void setVector(T* vector) { this->vector = vector; }
+
+    /**
+     * Set number of elements.
+     */
+    void setElements(unsigned int elements) { this->elements = elements; }
+
+
 private:
     T* vector; //< Pointer to table that holds vector.
     unsigned int elements; //< Number of elements in vector.
@@ -212,7 +233,7 @@ bool aghVector<T>::insert(const int index, T const& newValue) {
     tmp[index] = newValue;
     delete [] this->vector;
     this->vector = tmp;
-    ++elements
+    ++elements;
     return true;
 }
 
@@ -292,11 +313,11 @@ void aghVector<T>::print(ostream& out) const {
 
 template <typename T>
 bool aghVector<T>::equal(aghContainer<T> const& right) const {
-    bool sameSize = this->elements == right.elements;
+    bool sameSize = this->elements == rigth.getElements();
     if (!sameSize)
         return false;
     for (int i = 0; i < this->elements; ++i)
-        if (this->vector[i] != right.vector[i])
+        if (this->vector[i] != right.at(i))
             return false;
 
     return true;
@@ -313,7 +334,7 @@ aghVector<T>& aghVector<T>::operator=(const aghVector<T>& another){
 // --------------------------------------------------------------------------------
 
 template <typename T>
-void aghVector<T>::copy(const aghVector<T>& source){
+void aghVector<T>::copy(const aghVector<T>& source) {
     if (vector)
         this->destroyVector();
     this->elements = source.elements;
