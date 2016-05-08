@@ -131,11 +131,11 @@ public:
     bool equal(aghContainer<T> const& right) const;
 
     /**
-     * Make copy of another vector.
+     * Make copy of another container.
      *
      * @param another container
      */
-    void copy(const aghVector<T>& source) const;
+    void copy(const aghContainer<T>& source) const;
 
     /**
      * Assignment operator
@@ -143,7 +143,7 @@ public:
      * @param another vector
      * @return reference to the object
      */
-    aghVector<T>& operator=(const aghVector<T>&);
+    aghVector<T>& operator=(const aghContainer<T>&);
 
 private:
     T* vector; //< Pointer to table that holds vector.
@@ -305,7 +305,7 @@ bool aghVector<T>::equal(aghContainer<T> const& right) const {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-aghVector<T>& aghVector<T>::operator=(const aghVector<T>& another){
+aghVector<T>& aghVector<T>::operator=(const aghContainer<T>& another){
     this->copy(another);
     return *this;
 }
@@ -313,13 +313,13 @@ aghVector<T>& aghVector<T>::operator=(const aghVector<T>& another){
 // --------------------------------------------------------------------------------
 
 template <typename T>
-void aghVector<T>::copy(const aghVector<T>& source) {
+void aghVector<T>::copy(const aghContainer<T>& source) {
     if (vector)
         this->destroyVector();
-    this->elements = source.elements;
+    this->elements = source.size();
     this->vector = new T[this->elements];
     for(int i = 0; i < this->elements; ++i)
-        this->vector[i] = another.vector[i];
+        this->vector[i] = another.at(i);
     return;
 }
 

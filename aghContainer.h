@@ -117,6 +117,21 @@ public:
     virtual bool equal(aghContainer<T> const& right) const = 0;
 
     /**
+     * Make copy of another container.
+     *
+     * @param another container
+     */
+    virtual void copy(const aghContainer<T>&) const = 0;
+
+    /**
+     * Assignment operator
+     *
+     * @param another container
+     * @return reference to the object
+     */
+    virtual aghContainer<T>& operator=(const aghContainer<T>&) = 0;
+
+    /**
      * Operator to check if two containers are the same.
      *
      * @param another container
