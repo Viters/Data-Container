@@ -136,14 +136,6 @@ public:
      */
     void copy(const aghContainer<T>& source);
 
-    /**
-     * Assignment operator
-     *
-     * @param another vector
-     * @return reference to the object
-     */
-    aghContainer<T>& operator=(const aghContainer<T>&);
-
 private:
     T* vector; //< Pointer to table that holds vector.
     unsigned int elements; //< Number of elements in vector.
@@ -321,14 +313,6 @@ bool aghVector<T>::equal(const aghContainer<T>& right) const {
             return false;
 
     return true;
-}
-
-// --------------------------------------------------------------------------------
-
-template <typename T>
-aghContainer<T>& aghVector<T>::operator=(const aghContainer<T>& another){
-    this->copy(another);
-    return *this;
 }
 
 // --------------------------------------------------------------------------------
