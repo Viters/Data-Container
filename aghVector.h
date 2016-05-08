@@ -33,7 +33,7 @@ public:
      * Copy constructor
      * @param another vector
      */
-    aghVector(const aghVector<T>&);
+    aghVector(const aghContainer<T>&);
 
     /**
      * Destructor.
@@ -166,7 +166,7 @@ aghVector<T>::aghVector() : vector(nullptr), elements(0) {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-aghVector<T>::aghVector(const aghVector<T>& another): vector(nullptr) {
+aghVector<T>::aghVector(const aghContainer<T>& another): vector(nullptr) {
     this->copy(another);
 }
 
