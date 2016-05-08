@@ -42,3 +42,4 @@ catch.h
 
 # Error log
 compiling_error.txt
+.idea/
