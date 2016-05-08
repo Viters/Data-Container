@@ -121,7 +121,7 @@ public:
      *
      * @param another container
      */
-    virtual void copy(const aghContainer<T>&) const = 0;
+    virtual void copy(const aghContainer<T>&) = 0;
 
     /**
      * Assignment operator
