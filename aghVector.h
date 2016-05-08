@@ -145,27 +145,6 @@ public:
      */
     aghVector<T>& operator=(const aghVector<T>&);
 
-    /**
-     * Get vector pointer.
-     */
-    T* getVector() { return this->vector; }
-
-    /**
-     * Get elements.
-     */
-    unsigned int getElements() { return this->elements; }
-
-    /**
-     * Set vector pointer.
-     */
-    void setVector(T* vector) { this->vector = vector; }
-
-    /**
-     * Set number of elements.
-     */
-    void setElements(unsigned int elements) { this->elements = elements; }
-
-
 private:
     T* vector; //< Pointer to table that holds vector.
     unsigned int elements; //< Number of elements in vector.
@@ -313,11 +292,11 @@ void aghVector<T>::print(ostream& out) const {
 
 template <typename T>
 bool aghVector<T>::equal(aghContainer<T> const& right) const {
-    bool sameSize = this->elements == rigth.getElements();
+    bool sameSize = this->size() == right.size();
     if (!sameSize)
         return false;
     for (int i = 0; i < this->elements; ++i)
-        if (this->vector[i] != right.at(i))
+        if (this->at(i) != right.at(i))
             return false;
 
     return true;
