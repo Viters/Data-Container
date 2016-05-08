@@ -1,6 +1,6 @@
 /**
  * @file aghContainer.h
- * @author �ukasz Mielczarek, �ukasz Szcze�niak
+ * @author Łukasz Mielczarek, Łukasz Szcześniak
  * @date 05|05|2016
  * @version 0.1
  * @brief Contains declaration and definitions of aghContainer template class.
