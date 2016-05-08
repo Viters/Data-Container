@@ -213,7 +213,7 @@ bool aghVector<T>::insert(const int index, const T& newValue) {
     for(int i=0; i<elements; ++i)
         tmp[(i<index ? i : i+1)]=this->vector[i];
     tmp[index] = newValue;
-    delete [] this->vector;
+    this->destroyVector();
     this->vector = tmp;
     ++elements;
     return true;
