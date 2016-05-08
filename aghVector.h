@@ -242,7 +242,15 @@ int aghVector<T>::size() const {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-bool aghVector<T>::remove(const int) {
+bool aghVector<T>::remove(const int index) {
+    if(index<0 || index>=this->elements)
+        return false;
+    T* tmp = new T[elements-1];
+    for(int i=0; i<elements-1; i++)
+        tmp[i] = this->vector[(i<index ? i : i+1)];
+    delete [] this->vector;
+    this->vector = tmp;
+    return true;
 }
 
 // --------------------------------------------------------------------------------
