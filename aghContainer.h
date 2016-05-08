@@ -12,6 +12,7 @@
 #define DATA_CONTAINER_AGHCONTAINER_H
 
 #include <iostream>
+#include "aghException.h"
 
 using namespace std;
 
@@ -30,13 +31,13 @@ public:
      * Add element to container.
      * @param new element
      */
-    virtual void append(T const&) = 0;
+    virtual void append(const T&) = 0;
 
     /**
      * Join two containers of the same type.
      * @param another container
      */
-    virtual void append(aghContainer<T> const& right) = 0;
+    virtual void append(const aghContainer<T>& right) = 0;
 
     /**
      * Insert an element at specified position.
@@ -90,7 +91,7 @@ public:
      * @param start index (default = 0)
      * @return int index
      */
-    virtual int indexOf(T const& _value, int _from = 0) const = 0;
+    virtual int indexOf(const T& _value, int _from = 0) const = 0;
 
     /**
      * Check if element exists in container within specified range.
@@ -99,7 +100,7 @@ public:
      * @param start index (default = 0)
      * @return bool
      */
-    virtual bool contains(T const& _value, int _from = 0) const = 0;
+    virtual bool contains(const T& _value, int _from = 0) const = 0;
 
     /**
      * Print elements of container to output.
@@ -114,7 +115,7 @@ public:
      * @param another container
      * @return bool
      */
-    virtual bool equal(aghContainer<T> const& right) const = 0;
+    virtual bool equal(const aghContainer<T>& right) const = 0;
 
     /**
      * Make copy of another container.
@@ -137,7 +138,7 @@ public:
      * @param another container
      * @return bool
      */
-    virtual bool operator==(aghContainer<T> const& right) const;
+    virtual bool operator==(const aghContainer<T>& right) const;
 
     /**
      * Operator to check if two containers are not the same.
@@ -145,7 +146,7 @@ public:
      * @param another container
      * @return bool
      */
-    virtual bool operator!=(aghContainer<T> const& right) const;
+    virtual bool operator!=(const aghContainer<T>& right) const;
 
     /**
      * Operator to get element from specified position.
@@ -161,7 +162,7 @@ public:
      * @param new element
      * @return reference to itself
      */
-    virtual aghContainer<T>& operator+=(T const& element);
+    virtual aghContainer<T>& operator+=(const T& element);
 
     /**
      * Operator to join two containers of the same type.
@@ -169,7 +170,7 @@ public:
      * @param another container
      * @return reference to itself
      */
-    virtual aghContainer<T>& operator+=(aghContainer<T> const& right);
+    virtual aghContainer<T>& operator+=(const aghContainer<T>& right);
 
     /**
      * Operator to add element at specified position.
@@ -177,7 +178,7 @@ public:
      * @param new element
      * @return reference to itself
      */
-    virtual aghContainer<T>& operator<<(T const& element);
+    virtual aghContainer<T>& operator<<(const T& element);
 
     /**
      * Operator to join two containers of the same type.
@@ -185,7 +186,7 @@ public:
      * @param another container
      * @return reference to itself
      */
-    virtual aghContainer<T>& operator<<(aghContainer<T> const& right);
+    virtual aghContainer<T>& operator<<(const aghContainer<T>& right);
 
     /**
      * Operator to print container elements.
@@ -193,7 +194,8 @@ public:
      * @param container
      * @return reference to ostream object
      */
-    friend ostream& operator<<(ostream&, aghContainer<T> const& right);
+    template <typename Y>
+    friend ostream& operator<< (ostream&, const aghContainer<Y>& right);
 };
 
 // --------------------------------------------------------------------------------
@@ -201,14 +203,14 @@ public:
 // --------------------------------------------------------------------------------
 
 template <typename T>
-bool aghContainer<T>::operator==(aghContainer<T> const& right) const {
+bool aghContainer<T>::operator==(const aghContainer<T>& right) const {
     return this->equal(right);
 }
 
 // --------------------------------------------------------------------------------
 
 template <typename T>
-bool aghContainer<T>::operator!=(aghContainer<T> const& right) const {
+bool aghContainer<T>::operator!=(const aghContainer<T>& right) const {
     return !(this->equal(right));
 }
 
@@ -222,7 +224,7 @@ T& aghContainer<T>::operator[](const int n) const {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-aghContainer<T>& aghContainer<T>::operator+=(T const& element) {
+aghContainer<T>& aghContainer<T>::operator+=(const T& element) {
     this->append(element);
     return *this;
 }
@@ -230,7 +232,7 @@ aghContainer<T>& aghContainer<T>::operator+=(T const& element) {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-aghContainer<T>& aghContainer<T>::operator+=(aghContainer<T> const& right) {
+aghContainer<T>& aghContainer<T>::operator+=(const aghContainer<T>& right) {
     this->append(right);
     return *this;
 }
@@ -238,7 +240,7 @@ aghContainer<T>& aghContainer<T>::operator+=(aghContainer<T> const& right) {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-aghContainer<T>& aghContainer<T>::operator<<(T const& element) {
+aghContainer<T>& aghContainer<T>::operator<<(const T& element) {
     this->append(element);
     return *this;
 }
@@ -246,15 +248,15 @@ aghContainer<T>& aghContainer<T>::operator<<(T const& element) {
 // --------------------------------------------------------------------------------
 
 template <typename T>
-aghContainer<T>& aghContainer<T>::operator<<(aghContainer<T> const& right) {
+aghContainer<T>& aghContainer<T>::operator<<(const aghContainer<T>& right) {
     this->append(right);
     return *this;
 }
 
 // --------------------------------------------------------------------------------
 
-template <typename T>
-ostream& operator<<(ostream& out, aghContainer<T> const& right) {
+template <typename Y>
+ostream& operator<<(ostream& out, const aghContainer<Y>& right) {
     right.print(out);
     return out;
 }
