@@ -334,7 +334,7 @@ void aghVector<T>::copy(const aghContainer<T>& source) {
 
 template<typename T>
 void aghVector<T>::destroyVector(){
-    if(!this->vector)
+    if(this->vector)
         delete [] this->vector;
     this->vector = nullptr;
 }
