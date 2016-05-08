@@ -263,6 +263,7 @@ bool aghVector<T>::remove(const int index) {
         tmp[i] = this->vector[(i<index ? i : i+1)];
     delete [] this->vector;
     this->vector = tmp;
+    this->elements--;
     return true;
 }
 
