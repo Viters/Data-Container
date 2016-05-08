@@ -135,7 +135,7 @@ public:
      *
      * @param another container
      */
-    void copy(aghVector<T> const& source) const;
+    void copy(const aghVector<T>& source) const;
 
     /**
      * Assignment operator
