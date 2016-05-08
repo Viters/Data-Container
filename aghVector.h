@@ -320,8 +320,7 @@ bool aghVector<T>::equal(const aghContainer<T>& right) const {
 template <typename T>
 void aghVector<T>::copy(const aghContainer<T>& source) {
     if(this != &source){
-        if (vector)
-            this->destroyVector();
+        this->destroyVector();
         this->elements = source.size();
         this->vector = new T[this->elements];
         for(int i = 0; i < this->elements; ++i)
