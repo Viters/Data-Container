@@ -212,7 +212,7 @@ void aghVector<T>::append(const aghContainer<T>& right) {
 
 template <typename T>
 bool aghVector<T>::insert(const int index, const T& newValue) {
-    if(index>=elements || index<0)
+    if(index>elements || index<0)
         return false;
     T* tmp = new T[elements + 1];
     if(!tmp)
