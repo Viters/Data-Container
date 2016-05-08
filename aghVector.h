@@ -240,6 +240,8 @@ bool aghVector<T>::replace(const int index, const T& newValue) {
 
 template <typename T>
 T& aghVector<T>::at(const int pos) const {
+    if(pos<0 || pos>=this->elements)
+        throw aghException(1, "Wrong index demanded", __FILE__, __LINE__);
     return this->vector[pos];
 }
 
