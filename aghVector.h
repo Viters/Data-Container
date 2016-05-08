@@ -196,8 +196,9 @@ void aghVector<T>::append(const aghContainer<T>& right) {
         else
             tmp[i] = right.at(i-this->elements);
     }
-    delete [] this->vector;
+    this->destroyVector();
     this->vector = tmp;
+    this->elements += right.size();
 }
 
 // --------------------------------------------------------------------------------
