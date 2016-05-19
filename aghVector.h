@@ -90,15 +90,6 @@ public:
     bool isEmpty(void);
 
     /**
-     * Get index of element in container within specified range.
-     *
-     * @param element value
-     * @param start index (default = 0)
-     * @return int index
-     */
-    int indexOf(const T &_value, int _from = 0) const;
-
-    /**
      * Make copy of another container.
      *
      * @param another container
@@ -241,17 +232,6 @@ void aghVector<T>::clear() {
 template<typename T>
 bool aghVector<T>::isEmpty() {
     return this->elements == 0;
-}
-
-// --------------------------------------------------------------------------------
-
-template<typename T>
-int aghVector<T>::indexOf(const T &_value, int _from) const {
-    for (int i = _from; i < this->elements; ++i)
-        if (this->vector[i] == _value)
-            return i;
-
-    return -1;
 }
 
 // --------------------------------------------------------------------------------
