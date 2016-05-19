@@ -21,7 +21,7 @@ using namespace std;
 */
 template<typename T>
 class aghSlist :
-	public aghContainer<T> {
+        public aghContainer<T> {
 public:
     aghSlist();
 
@@ -76,12 +76,16 @@ public:
     aghContainer<T> &operator=(const aghContainer<T> &);
 
 private:
-	struct Node {
-		T value;
-		Node *next;
-	} *head;
+    struct Node {
+        T value;
+        ListElem next;
 
-	int elements;
+        Node(T value, ListElem next = nullptr) : value(value), next(next) {}
+    } *head;
+
+    unsigned int elements;
+
+    typedef Node* ListElem;
 };
 
 // --------------------------------------------------------------------------------
@@ -94,8 +98,8 @@ aghSlist::aghSlist() : head(nullptr), elements(0) { }
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghSlist::aghSlist(const aghContainer<T> & container){
-
+aghSlist::aghSlist(const aghContainer<T> &container) : head(nullptr) {
+    this->copy(container);
 }
 
 // --------------------------------------------------------------------------------
@@ -108,22 +112,35 @@ aghSlist::~aghSlist() {
 // --------------------------------------------------------------------------------
 
 template<typename T>
-bool aghSlist::insert(const int i, const T &t) {
-    return false;
+bool aghSlist::insert(const int index, const T &value) {
+    if (index > this->elements || index < 0)
+        return false;
+
+    ListElem iter = this->head;
+    for (int i = 0; i < index; ++i) {
+        iter = iter->next;
+    }
+
+    ListElem newElem = new Node(value, iter->next);
+
+    (this->isEmpty()) ? this->head = newElem : iter->next = newElem;
+
+    return true;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-T &aghSlist::at(const int i) const {
-    return <#initializer#>;
+T &aghSlist::at(const int pos) const {
+    if (pos < 0 || pos >= this->elements)
+        throw aghException(1, "Wrong index demanded", __FILE__, __LINE__);
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 int aghSlist::size(void) const {
-    return 0;
+    return this->elements;
 }
 
 // --------------------------------------------------------------------------------
