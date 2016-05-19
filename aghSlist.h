@@ -81,8 +81,9 @@ private:
         ListElem next;
 
         Node(T value, ListElem next = nullptr) : value(value), next(next) {}
-    } *head;
+    };
 
+    ListElem head;
     unsigned int elements;
 
     typedef Node* ListElem;
