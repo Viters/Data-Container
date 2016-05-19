@@ -59,13 +59,6 @@ public:
     void clear(void);
 
     /**
-     * Make copy of another containe
-     *
-     * @param another container
-     */
-    void copy(const aghContainer<T> &source);
-
-    /**
      * Assignment operator
      *
      * @param another vector

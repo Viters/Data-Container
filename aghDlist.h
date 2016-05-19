@@ -62,13 +62,6 @@ public:
     void clear(void);
 
     /**
-     * Make copy of another container
-     *
-     * @param another container
-     */
-    void copy(const aghContainer<T> &source);
-
-    /**
      * Assignment operator
      *
      * @param another vector
@@ -142,13 +135,6 @@ bool aghDlist<T>::remove(const int pos) {
 template<typename T>
 void aghDlist<T>::clear(void) {
 
-}
-
-// --------------------------------------------------------------------------------
-
-template<typename T>
-void aghDlist<T>::copy(const aghContainer<T> &source) {
-    
 }
 
 // --------------------------------------------------------------------------------
