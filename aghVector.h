@@ -2,7 +2,7 @@
  * @file aghVector.h
  * @author Łukasz Mielczarek, Łukasz Szcześniak
  * @date 05|05|2016
- * @version 0.1
+ * @version 1.0
  * @brief Contains declaration and definitions of aghVector template class.
 */
 
@@ -84,7 +84,6 @@ public:
      * @return reference to the object
      */
     aghContainer<T> &operator=(const aghContainer<T> &);
-
 
 private:
     T *vector; //< Pointer to table that holds vector.
