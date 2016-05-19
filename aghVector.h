@@ -59,13 +59,6 @@ public:
     bool insert(const int, const T &);
 
     /**
-     * Replace an element at specified position.
-     * @param position number
-     * @param new element
-     */
-    bool replace(const int, const T &);
-
-    /**
      * Get element at specified position.
      * @param position number
      */
@@ -201,16 +194,6 @@ bool aghVector<T>::insert(const int index, const T &newValue) {
     this->destroyVector();
     this->vector = tmp;
     ++elements;
-    return true;
-}
-
-// --------------------------------------------------------------------------------
-
-template<typename T>
-bool aghVector<T>::replace(const int index, const T &newValue) {
-    if (index < 0 || index >= this->elements)
-        return false;
-    this->vector[index] = newValue;
     return true;
 }
 

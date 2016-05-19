@@ -51,7 +51,7 @@ public:
      * @param position number
      * @param new element
      */
-    virtual bool replace(const int, T const &) = 0;
+    virtual bool replace(const int, T const &);
 
     /**
      * Get element at specified position.
@@ -200,6 +200,16 @@ public:
 
 // --------------------------------------------------------------------------------
 // End of aghContainer declaration.
+// --------------------------------------------------------------------------------
+
+template<typename T>
+bool aghContainer<T>::replace(const int index, const T &newValue) {
+    if (index < 0 || index >= this->size())
+        return false;
+    this->at(index) = newValue;
+    return true;
+}
+
 // --------------------------------------------------------------------------------
 
 template<typename T>
