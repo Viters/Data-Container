@@ -91,7 +91,7 @@ public:
      * @param start index (default = 0)
      * @return int index
      */
-    virtual int indexOf(const T &_value, int _from = 0) const = 0;
+    virtual int indexOf(const T &_value, int _from = 0) const;
 
     /**
      * Check if element exists in container within specified range.
@@ -200,6 +200,13 @@ public:
 
 // --------------------------------------------------------------------------------
 // End of aghContainer declaration.
+// --------------------------------------------------------------------------------
+
+template<typename T>
+bool aghContainer<T>::contains(const T &_value, int _from) const {
+    return this->indexOf(_value, _from) != -1;
+}
+
 // --------------------------------------------------------------------------------
 
 template<typename T>

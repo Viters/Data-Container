@@ -97,15 +97,6 @@ public:
     bool isEmpty(void);
 
     /**
-     * Get index of element in container within specified range.
-     *
-     * @param element value
-     * @param start index (default = 0)
-     * @return int index
-     */
-    int indexOf(const T &_value, int _from = 0) const;
-
-    /**
      * Check if element exists in container within specified range.
      *
      * @param element value
@@ -278,13 +269,6 @@ int aghVector<T>::indexOf(const T &_value, int _from) const {
             return i;
 
     return -1;
-}
-
-// --------------------------------------------------------------------------------
-
-template<typename T>
-bool aghVector<T>::contains(const T &_value, int _from) const {
-    return this->indexOf(_value, _from) != -1;
 }
 
 // --------------------------------------------------------------------------------
