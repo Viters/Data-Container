@@ -108,7 +108,7 @@ aghSlist<T>::aghSlist(const aghContainer<T> &container) : head(nullptr), tail(nu
 
 template<typename T>
 aghSlist<T>::~aghSlist() {
-
+    this->clear();
 }
 
 // --------------------------------------------------------------------------------
@@ -118,19 +118,24 @@ bool aghSlist<T>::insert(const int index, const T &value) {
     if (index > this->elements || index < 0)
         return false;
 
-    if (index > 0) {
-        listElem oldElem = this->at(index - 1);
-        listElem newElem = new Node<T>(value, oldElem->next);
-        oldElem->next = newElem;
+    listElem oldElem;
+    listElem newElem;
 
-        if (index == this->size())
-            this->tail = newElem;
+    if (index > 0) {
+        oldElem = this->at(index - 1);
+        newElem = new Node<T>(value, oldElem->next);
+        oldElem->next = newElem;
     }
     else {
-        listElem oldElem = this->at(0);
-        listElem newElem = new Node<T>(value, oldElem);
+        oldElem = this->at(0);
+        newElem = new Node<T>(value, oldElem);
         this->head = newElem;
     }
+
+    if (index == this->size())
+        this->tail = newElem;
+
+    ++elements;
 
     return true;
 }
@@ -167,14 +172,44 @@ int aghSlist<T>::size(void) const {
 
 template<typename T>
 bool aghSlist<T>::remove(const int index) {
-    return false;
+    if (index >= this->elements || index < 0)
+        return false;
+
+    listElem prevElem;
+    listElem toRemove;
+
+    if (index > 0) {
+        prevElem = this->at(index - 1);
+        toRemove = prevElem->next;
+        prevElem->next = toRemove->next;
+        delete toRemove;
+    }
+    else {
+        toRemove = this->at(0);
+        this->head = toRemove->next;
+        delete toRemove;
+    }
+
+    if (index == this->size() - 1)
+        this->tail = prevElem;
+
+    --elements;
+
+    return true;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 void aghSlist<T>::clear(void) {
-
+    listElem toRemove;
+    while (!this->head) {
+        toRemove = this->head;
+        this->head = head->next;
+        delete toRemove;
+    }
+    this->tail = nullptr;
+    this->elements = 0;
 }
 
 // --------------------------------------------------------------------------------
@@ -187,8 +222,9 @@ void aghSlist<T>::copy(const aghContainer<T> &source) {
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghContainer<T> &aghSlist<T>::operator=(const aghContainer<T> &container) {
-
+aghContainer<T> &aghSlist<T>::operator=(const aghContainer<T> &source) {
+    this->copy(source);
+    return *this;
 }
 
 // --------------------------------------------------------------------------------
