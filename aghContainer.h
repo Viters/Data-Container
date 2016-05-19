@@ -122,7 +122,7 @@ public:
      *
      * @param another container
      */
-    virtual void copy(const aghContainer<T> &) = 0;
+    virtual void copy(const aghContainer<T> &);
 
     /**
      * Assignment operator
@@ -255,6 +255,23 @@ template<typename T>
 void aghContainer<T>::print(ostream &out) const {
     for (int i = 0; i < this->size(); ++i)
         out << this->at(i) << endl;
+    return;
+}
+
+// --------------------------------------------------------------------------------
+
+template<typename T>
+void aghContainer<T>::copy(const aghContainer<T> &source) {
+    if (this == &source)
+        return;
+
+    if(!this->isEmpty())
+        this->clear();
+
+    for (int i = 0; i < source.size(); ++i) {
+        this->append(source.at(i));
+    }
+
     return;
 }
 

@@ -215,13 +215,6 @@ void aghSlist<T>::clear(void) {
 // --------------------------------------------------------------------------------
 
 template<typename T>
-void aghSlist<T>::copy(const aghContainer<T> &source) {
-
-}
-
-// --------------------------------------------------------------------------------
-
-template<typename T>
 aghContainer<T> &aghSlist<T>::operator=(const aghContainer<T> &source) {
     this->copy(source);
     return *this;
