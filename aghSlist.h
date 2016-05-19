@@ -20,13 +20,16 @@ using namespace std;
  * Class template to provide operation on single-sided list.
 */
 template<typename T>
-class aghVector :
+class aghSlist :
 	public aghContainer<T> {
 public:
 
 
 private:
-
+	struct Node {
+		T value;
+		Node *next;
+	} *head;
 };
 
 #endif
