@@ -14,8 +14,6 @@
 #include "aghContainer.h"
 #include <iostream>
 
-using namespace std;
-
 /**
  * Class template to provide operations on single-sided list.
 */
@@ -76,19 +74,20 @@ public:
     aghContainer<T> &operator=(const aghContainer<T> &);
 
 private:
+    template<typename Y>
     struct Node {
-        T value;
-        listElem next;
+        Y value;
+        Node<Y> *next;
 
-        Node(T value, listElem next = nullptr) : value(value), next(next) { }
+        Node(Y value, Node<Y> *next = nullptr) : value(value), next(next) { }
     };
+
+    typedef Node<T> *listElem;
 
     listElem head;
     listElem tail;
 
     unsigned int elements;
-
-    typedef Node *listElem;
 };
 
 // --------------------------------------------------------------------------------
@@ -96,32 +95,32 @@ private:
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghSlist::aghSlist() : head(nullptr), tail(nullptr), elements(0) { }
+aghSlist<T>::aghSlist() : head(nullptr), tail(nullptr), elements(0) { }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghSlist::aghSlist(const aghContainer<T> &container) : head(nullptr), tail(nullptr) {
+aghSlist<T>::aghSlist(const aghContainer<T> &container) : head(nullptr), tail(nullptr) {
     this->copy(container);
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghSlist::~aghSlist() {
+aghSlist<T>::~aghSlist() {
 
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-bool aghSlist::insert(const int index, const T &value) {
+bool aghSlist<T>::insert(const int index, const T &value) {
     if (index > this->elements || index < 0)
         return false;
 
     if (index > 0) {
         listElem oldElem = this->at(index - 1);
-        listElem newElem = new Node(value, oldElem->next);
+        listElem newElem = new Node<T>(value, oldElem->next);
         oldElem->next = newElem;
 
         if (index == this->size())
@@ -129,7 +128,7 @@ bool aghSlist::insert(const int index, const T &value) {
     }
     else {
         listElem oldElem = this->at(0);
-        listElem newElem = new Node(value, oldElem);
+        listElem newElem = new Node<T>(value, oldElem);
         this->head = newElem;
     }
 
@@ -139,18 +138,18 @@ bool aghSlist::insert(const int index, const T &value) {
 // --------------------------------------------------------------------------------
 
 template<typename T>
-T &aghSlist::at(const int pos) const {
-    if (pos < 0 || pos >= this->elements)
+T &aghSlist<T>::at(const int index) const {
+    if (index < 0 || index >= this->elements)
         throw aghException(1, "Wrong index demanded", __FILE__, __LINE__);
 
-    bool callForLast = (pos == this->size() - 1);
+    bool callForLast = (index == this->size() - 1);
 
     if (callForLast) {
         return *(this->tail);
     }
     else {
         listElem iter = this->head;
-        for (int i = 0; i < pos; ++i) {
+        for (int i = 0; i < index; ++i) {
             iter = iter->next;
         }
         return *iter;
@@ -160,36 +159,36 @@ T &aghSlist::at(const int pos) const {
 // --------------------------------------------------------------------------------
 
 template<typename T>
-int aghSlist::size(void) const {
+int aghSlist<T>::size(void) const {
     return this->elements;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-bool aghSlist::remove(const int i) {
+bool aghSlist<T>::remove(const int index) {
     return false;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-void aghSlist::clear(void) {
+void aghSlist<T>::clear(void) {
 
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-void aghSlist::copy(const aghContainer<T> &source) {
+void aghSlist<T>::copy(const aghContainer<T> &source) {
 
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghContainer<T> &aghSlist::operator=(const aghContainer<T> &container) {
-    return aghContainer::operator=(container);
+aghContainer<T> &aghSlist<T>::operator=(const aghContainer<T> &container) {
+
 }
 
 // --------------------------------------------------------------------------------
