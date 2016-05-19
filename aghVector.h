@@ -115,13 +115,6 @@ public:
     bool contains(const T &_value, int _from = 0) const;
 
     /**
-     * Print elements of container to output.
-     *
-     * @param output
-     */
-    void print(ostream &) const;
-
-    /**
      * Check if two containers are the same.
      *
      * @param another container
@@ -300,15 +293,6 @@ int aghVector<T>::indexOf(const T &_value, int _from) const {
 template<typename T>
 bool aghVector<T>::contains(const T &_value, int _from) const {
     return this->indexOf(_value, _from) != -1;
-}
-
-// --------------------------------------------------------------------------------
-
-template<typename T>
-void aghVector<T>::print(ostream &out) const {
-    for (int i = 0; i < elements; ++i)
-        out << vector[i] << endl;
-    return;
 }
 
 // --------------------------------------------------------------------------------

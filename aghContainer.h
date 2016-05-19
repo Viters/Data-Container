@@ -107,7 +107,7 @@ public:
      *
      * @param output
      */
-    virtual void print(ostream &) const = 0;
+    virtual void print(ostream &) const;
 
     /**
      * Check if two containers are the same.
@@ -200,6 +200,15 @@ public:
 
 // --------------------------------------------------------------------------------
 // End of aghContainer declaration.
+// --------------------------------------------------------------------------------
+
+template<typename T>
+void aghContainer<T>::print(ostream &out) const {
+    for (int i = 0; i < this->size(); ++i)
+        out << this->at(i) << endl;
+    return;
+}
+
 // --------------------------------------------------------------------------------
 
 template<typename T>
