@@ -115,7 +115,7 @@ public:
      * @param another container
      * @return bool
      */
-    virtual bool equal(const aghContainer<T> &right) const = 0;
+    virtual bool equal(const aghContainer<T> &right) const;
 
     /**
      * Make copy of another container.
@@ -207,6 +207,20 @@ void aghContainer<T>::print(ostream &out) const {
     for (int i = 0; i < this->size(); ++i)
         out << this->at(i) << endl;
     return;
+}
+
+// --------------------------------------------------------------------------------
+
+template<typename T>
+bool aghContainer<T>::equal(const aghContainer<T> &right) const {
+    bool sameSize = this->size() == right.size();
+    if (!sameSize)
+        return false;
+    for (int i = 0; i < this->size(); ++i)
+        if (this->at(i) != right.at(i))
+            return false;
+
+    return true;
 }
 
 // --------------------------------------------------------------------------------

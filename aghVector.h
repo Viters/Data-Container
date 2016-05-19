@@ -115,14 +115,6 @@ public:
     bool contains(const T &_value, int _from = 0) const;
 
     /**
-     * Check if two containers are the same.
-     *
-     * @param another container
-     * @return bool
-     */
-    bool equal(const aghContainer<T> &right) const;
-
-    /**
      * Make copy of another container.
      *
      * @param another container
@@ -293,20 +285,6 @@ int aghVector<T>::indexOf(const T &_value, int _from) const {
 template<typename T>
 bool aghVector<T>::contains(const T &_value, int _from) const {
     return this->indexOf(_value, _from) != -1;
-}
-
-// --------------------------------------------------------------------------------
-
-template<typename T>
-bool aghVector<T>::equal(const aghContainer<T> &right) const {
-    bool sameSize = this->size() == right.size();
-    if (!sameSize)
-        return false;
-    for (int i = 0; i < this->elements; ++i)
-        if (this->at(i) != right.at(i))
-            return false;
-
-    return true;
 }
 
 // --------------------------------------------------------------------------------
