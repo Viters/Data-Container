@@ -40,18 +40,6 @@ public:
     ~aghVector();
 
     /**
-     * Add element to container.
-     * @param new element
-     */
-    void append(const T &);
-
-    /**
-     * Join two containers of the same type.
-     * @param another container
-     */
-    void append(const aghContainer<T> &right);
-
-    /**
      * Insert an element at specified position.
      * @param position number
      * @param new element
@@ -83,7 +71,7 @@ public:
     void clear(void);
 
     /**
-     * Make copy of another container.
+     * Make copy of another containe
      *
      * @param another container
      */
@@ -128,39 +116,6 @@ aghVector<T>::aghVector(const aghContainer<T> &another) : vector(nullptr) {
 template<typename T>
 aghVector<T>::~aghVector() {
     this->clear();
-}
-
-// --------------------------------------------------------------------------------
-
-template<typename T>
-void aghVector<T>::append(const T &newValue) {
-    T *tmp = new T[elements + 1];
-    if (!tmp)
-        throw aghException(1, "No memory that could be allocated", __FILE__, __LINE__);
-    for (int i = 0; i < elements; ++i)
-        tmp[i] = this->vector[i];
-    tmp[elements] = newValue;
-    delete[] this->vector;
-    this->vector = tmp;
-    ++elements;
-}
-
-// --------------------------------------------------------------------------------
-
-template<typename T>
-void aghVector<T>::append(const aghContainer<T> &right) {
-    T *tmp = new T[this->elements + right.size()];
-    if (!tmp)
-        throw aghException(1, "No memory that could be allocated", __FILE__, __LINE__);
-    for (int i = 0; i < this->elements + right.size(); ++i) {
-        if (i < this->elements)
-            tmp[i] = this->vector[i];
-        else
-            tmp[i] = right.at(i - this->elements);
-    }
-    this->destroyVector();
-    this->vector = tmp;
-    this->elements += right.size();
 }
 
 // --------------------------------------------------------------------------------

@@ -31,13 +31,13 @@ public:
      * Add element to container.
      * @param new element
      */
-    virtual void append(const T &) = 0;
+    virtual void append(const T &);
 
     /**
      * Join two containers of the same type.
      * @param another container
      */
-    virtual void append(const aghContainer<T> &right) = 0;
+    virtual void append(const aghContainer<T> &);
 
     /**
      * Insert an element at specified position.
@@ -200,6 +200,21 @@ public:
 
 // --------------------------------------------------------------------------------
 // End of aghContainer declaration.
+// --------------------------------------------------------------------------------
+
+template<typename T>
+void aghContainer<T>::append(const T &newValue) {
+	this->insert(this->size(), newValue);
+}
+
+// --------------------------------------------------------------------------------
+
+template<typename T>
+void aghContainer<T>::append(const aghContainer &newValue) {
+	for (int i = 0; i < newValue.size(); ++i)
+		this->insert(this->size(), newValue.at(i));
+}
+
 // --------------------------------------------------------------------------------
 
 template<typename T>
