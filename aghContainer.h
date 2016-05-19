@@ -213,7 +213,7 @@ int aghContainer<T>::indexOf(const T &_value, int _from) const {
 // --------------------------------------------------------------------------------
 
 template<typename T>
-bool aghVector<T>::isEmpty() {
+bool aghContainer<T>::isEmpty() {
     return this->size() == 0;
 }
 
