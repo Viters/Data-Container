@@ -186,13 +186,17 @@ aghContainer<T> &aghVector<T>::operator=(const aghContainer<T> &another) {
 
 template<typename T>
 void aghVector<T>::copy(const aghContainer<T> &source) {
-    if (this != &source) {
+    if (this != &source)
+        return;
+
+    if (isEmpty())
         this->destroyVector();
-        this->elements = source.size();
-        this->vector = new T[this->elements];
-        for (int i = 0; i < this->elements; ++i)
-            this->vector[i] = source.at(i);
-    }
+
+    this->elements = source.size();
+    this->vector = new T[this->elements];
+    for (int i = 0; i < this->elements; ++i)
+        this->vector[i] = source.at(i);
+
     return;
 }
 
