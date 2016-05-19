@@ -78,15 +78,17 @@ public:
 private:
     struct Node {
         T value;
-        ListElem next;
+        listElem next;
 
-        Node(T value, ListElem next = nullptr) : value(value), next(next) {}
+        Node(T value, listElem next = nullptr) : value(value), next(next) { }
     };
 
-    ListElem head;
+    listElem head;
+    listElem tail;
+
     unsigned int elements;
 
-    typedef Node* ListElem;
+    typedef Node *listElem;
 };
 
 // --------------------------------------------------------------------------------
@@ -94,12 +96,12 @@ private:
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghSlist::aghSlist() : head(nullptr), elements(0) { }
+aghSlist::aghSlist() : head(nullptr), tail(nullptr), elements(0) { }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghSlist::aghSlist(const aghContainer<T> &container) : head(nullptr) {
+aghSlist::aghSlist(const aghContainer<T> &container) : head(nullptr), tail(nullptr) {
     this->copy(container);
 }
 
@@ -117,14 +119,19 @@ bool aghSlist::insert(const int index, const T &value) {
     if (index > this->elements || index < 0)
         return false;
 
-    ListElem iter = this->head;
-    for (int i = 0; i < index; ++i) {
-        iter = iter->next;
+    if (index > 0) {
+        listElem oldElem = this->at(index - 1);
+        listElem newElem = new Node(value, oldElem->next);
+        oldElem->next = newElem;
+
+        if (index == this->size())
+            this->tail = newElem;
     }
-
-    ListElem newElem = new Node(value, iter->next);
-
-    (this->isEmpty()) ? this->head = newElem : iter->next = newElem;
+    else {
+        listElem oldElem = this->at(0);
+        listElem newElem = new Node(value, oldElem);
+        this->head = newElem;
+    }
 
     return true;
 }
@@ -135,6 +142,19 @@ template<typename T>
 T &aghSlist::at(const int pos) const {
     if (pos < 0 || pos >= this->elements)
         throw aghException(1, "Wrong index demanded", __FILE__, __LINE__);
+
+    bool callForLast = (pos == this->size() - 1);
+
+    if (callForLast) {
+        return *(this->tail);
+    }
+    else {
+        listElem iter = this->head;
+        for (int i = 0; i < pos; ++i) {
+            iter = iter->next;
+        }
+        return *iter;
+    }
 }
 
 // --------------------------------------------------------------------------------
