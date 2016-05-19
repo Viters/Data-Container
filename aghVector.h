@@ -121,17 +121,17 @@ aghVector<T>::~aghVector() {
 
 template<typename T>
 bool aghVector<T>::insert(const int index, const T &newValue) {
-    if (index > elements || index < 0)
+    if (index > this->elements || index < 0)
         return false;
-    T *tmp = new T[elements + 1];
+    T *tmp = new T[this->elements + 1];
     if (!tmp)
         throw aghException(1, "No memory that could be allocated", __FILE__, __LINE__);
-    for (int i = 0; i < elements; ++i)
+    for (int i = 0; i < this->elements; ++i)
         tmp[(i < index ? i : i + 1)] = this->vector[i];
     tmp[index] = newValue;
     this->destroyVector();
     this->vector = tmp;
-    ++elements;
+    ++this->elements;
     return true;
 }
 
