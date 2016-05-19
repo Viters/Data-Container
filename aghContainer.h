@@ -91,7 +91,7 @@ public:
      * @param start index (default = 0)
      * @return int index
      */
-    virtual int indexOf(const T &_value, int _from = 0) const;
+    virtual int indexOf(const T &_value, int _from = 0) const = 0;
 
     /**
      * Check if element exists in container within specified range.
@@ -100,7 +100,7 @@ public:
      * @param start index (default = 0)
      * @return bool
      */
-    virtual bool contains(const T &_value, int _from = 0) const = 0;
+    virtual bool contains(const T &_value, int _from = 0) const;
 
     /**
      * Print elements of container to output.
