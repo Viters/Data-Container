@@ -94,67 +94,67 @@ private:
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghDlist::aghDlist() : head(nullptr), tail(nullptr), elements(0) {}
+aghDlist<T>::aghDlist() : head(nullptr), tail(nullptr), elements(0) {}
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghDlist::aghDlist(const aghContainer<T> &container) : head(nullptr) {
+aghDlist<T>::aghDlist(const aghContainer<T> &container) : head(nullptr) {
     this->copy(container);
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghDlist::~aghDlist() {
+aghDlist<T>::~aghDlist() {
 
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-bool aghDlist::insert(const int index, const T& value) {
+bool aghDlist<T>::insert(const int index, const T& value) {
     
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-T & aghDlist::at(const int pos) const {
+T & aghDlist<T>::at(const int pos) const {
 
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-int aghDlist::size(void) const {
+int aghDlist<T>::size(void) const {
     return this->elements;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-bool aghDlist::remove(const int pos) {
+bool aghDlist<T>::remove(const int pos) {
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-void aghDlist::clear(void) {
+void aghDlist<T>::clear(void) {
 
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-void aghDlist::copy(const aghContainer<T> &source) {
+void aghDlist<T>::copy(const aghContainer<T> &source) {
     
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghContainer<T> &aghDlist::operator=(const aghContainer<T> &container) {
+aghContainer<T> &aghDlist<T>::operator=(const aghContainer<T> &container) {
     
 }
 
