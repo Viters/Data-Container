@@ -97,13 +97,13 @@ public:
     bool isEmpty(void);
 
     /**
-     * Check if element exists in container within specified range.
+     * Get index of element in container within specified range.
      *
      * @param element value
      * @param start index (default = 0)
-     * @return bool
+     * @return int index
      */
-    bool contains(const T &_value, int _from = 0) const;
+    int indexOf(const T &_value, int _from = 0) const;
 
     /**
      * Make copy of another container.
