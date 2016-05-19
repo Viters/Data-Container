@@ -83,13 +83,6 @@ public:
     void clear(void);
 
     /**
-     * Check if there are any elements in container.
-     *
-     * @return bool
-     */
-    bool isEmpty(void);
-
-    /**
      * Make copy of another container.
      *
      * @param another container
@@ -225,13 +218,6 @@ template<typename T>
 void aghVector<T>::clear() {
     this->destroyVector();
     this->elements = 0;
-}
-
-// --------------------------------------------------------------------------------
-
-template<typename T>
-bool aghVector<T>::isEmpty() {
-    return this->elements == 0;
 }
 
 // --------------------------------------------------------------------------------

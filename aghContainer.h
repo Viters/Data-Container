@@ -82,7 +82,7 @@ public:
      *
      * @return bool
      */
-    virtual bool isEmpty(void) = 0;
+    virtual bool isEmpty(void);
 
     /**
      * Get index of element in container within specified range.
@@ -208,6 +208,13 @@ int aghContainer<T>::indexOf(const T &_value, int _from) const {
         if (this->at(i) == _value)
             return i;
     return -1;
+}
+
+// --------------------------------------------------------------------------------
+
+template<typename T>
+bool aghVector<T>::isEmpty() {
+    return this->size() == 0;
 }
 
 // --------------------------------------------------------------------------------
