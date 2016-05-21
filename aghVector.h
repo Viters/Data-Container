@@ -189,7 +189,7 @@ void aghVector<T>::copy(const aghContainer<T> &source) {
     if (this != &source)
         return;
 
-    if (isEmpty())
+    if (this->isEmpty())
         this->destroyVector();
 
     this->elements = source.size();
