@@ -11,6 +11,10 @@ int main(void)
 {
     cout << "main by kk. modified by viters. Last updated 21.05.2016\n";
 
+    // ---- testy dla aghDlist - listy podwojnej ----
+
+    cout << "Testy dla aghDlist:\n";
+
     aghDlist<aghDlist<int> > a;
     aghContainer<int> *c1 = new aghDlist<int>;
     aghContainer<int> *c2;
@@ -70,7 +74,7 @@ int main(void)
     }
     showTestResult(4, t4);
 
-    // 5th test - sprawdzenie dzialanie konstruktora kopiujacego
+    // 5th test - sprawdzenie dzialania konstruktora kopiujacego
     bool t5 = c2->size() == 3;
     int ttab5[] = {2, 3, 2};
     for (int i = 0; i < 3; i++) {
@@ -128,7 +132,7 @@ int main(void)
         showTestResult(14, false);
     }
 
-    // 15th test - zwalnianie paieci
+    // 15th test - zwalnianie pamieci
     try
     {
         delete c1;
@@ -140,12 +144,16 @@ int main(void)
         showTestResult(15, false);
     }
 
-    // ---- testy dla aghSlist ----
+    cout << "Finally, this is the end... or isn't it?\n";
 
-    // aghSlist<aghSlist<int> > slist1;
+    // ---- testy dla aghSlist - lista pojedyncza ----
+
+    cout << "\nTesty dla aghSlist:\n";
+
+    aghSlist<aghSlist<int> > slist1;
     aghContainer<int> *slistptr1 = new aghSlist<int>;
     aghContainer<int> *slistptr2;
-    // slist1 << *((aghSlist<int> *)slistptr1);
+    slist1 << *((aghSlist<int> *)slistptr1);
 
     // 16th test - dodawanie do pojemnika stalych, zmiennych, tymczasowych
     slistptr1->append(3);
@@ -160,7 +168,117 @@ int main(void)
 
     showTestResult(16, t16);
 
-    cout << "Finally, this is the end...\n";
+    // 17th test - konstruktor
+    slistptr2 = new aghDlist<int>(*slistptr1);
+    bool t17 = slistptr2->size() == 3;
+    int ttab17[] = {2, 3, 2};
+    for (int i = 0; i < 3; i++) {
+        t17 = t17 && (ttab17[i] == slistptr2->at(i));
+    }
+    showTestResult(17, t17);
+
+    // 18th test - odwolania
+    try
+    {
+        slistptr2->at(-1);
+        slistptr2->at(100);
+        (*slistptr2)[-1];
+        (*slistptr2)[100];
+        showTestResult(18, false);
+    }
+    catch (aghException &e)
+    {
+        showTestResult(18, true);
+    }
+    catch (...) {
+        showTestResult(18, false);
+    }
+
+    // 19th test - usuwanie z pojemnika
+    slistptr1->clear();
+    for (int i = 0; i < 5; i++) {
+        *slistptr1 += i;
+    }
+    *slistptr1 << 4 << 2 + 3;
+    slistptr1->remove(2);
+
+    int ttab19[] = {0, 1, 3, 4, 4, 5};
+    bool t19 = slistptr1->size() == 6;
+    for (int i = 0; t19 && i < 6; i++) {
+        t19 = t19 && (ttab19[i] == slistptr1->at(i));
+    }
+    showTestResult(19, t19);
+
+    // 20th test - sprawdzenie dzialanie konstruktora kopiujacego
+    bool t20 = slistptr2->size() == 3;
+    int ttab20[] = {2, 3, 2};
+    for (int i = 0; i < 3; i++) {
+        t20 = t20 && (ttab20[i] == slistptr2->at(i));
+    }
+    showTestResult(20, t20);
+
+    // 21th test - metoda indexOf
+    showTestResult(21, slistptr1->indexOf(3) == 2);
+
+    // 22th test - metoda indexOf
+    showTestResult(22, slistptr1->indexOf(4, 3) == 3);
+
+    // 23th test - metoda indexOf
+    showTestResult(23, slistptr1->indexOf(4, 4) == 4);
+
+    // 24th test - metoda indexOf
+    showTestResult(24, slistptr1->indexOf(3, 3) == -1);
+
+    // 25th test - metoda contains
+    showTestResult(25, !slistptr1->contains(-6));
+
+    // 26th test - operacje na pojemniku w pojemniku
+    for (int i = 3; i >= 0; i--) {
+        slist1.at(0) += i + 1;
+    }
+
+    bool t26 = slist1.at(0).size() == 4;
+    int ttab26[] = {4, 3, 2, 1};
+    for (int i = 0; t26 && i < 4; i++) {
+        t26 = t26 && (slist1.at(0).at(i) == ttab26[i]);
+    }
+    showTestResult(26, t26);
+
+    // 27th test - usuwanie z pojemnika
+    slist1.at(0).remove(2);   // 4,3,1
+    slist1.at(0).remove(1);   // 4,1
+    slist1.at(0).remove(1);   // 4
+    slist1.at(0).remove(0);   // empty
+    showTestResult(27, slist1.at(0).isEmpty());
+
+    // 28th test - dzialanie operatora przypisania
+    *slistptr2 = slist1.at(0) = *slistptr1;
+    showTestResult(28, *slistptr1 == slist1.at(0));
+
+    // 29th test - operator przypisania
+    try
+    {
+        *slistptr2 = *slistptr2;
+        showTestResult(29, *slistptr1 == *slistptr2);
+    }
+    catch (...)
+    {
+        showTestResult(29, false);
+    }
+
+    // 30th test - zwalnianie pamieci
+    try
+    {
+        delete slistptr1;
+        delete slistptr2;
+        showTestResult(30, true);
+    }
+    catch (...)
+    {
+        showTestResult(30, false);
+    }
+
+    cout << "Now it definitely is the end...\n";
 
     return 0;
 }
