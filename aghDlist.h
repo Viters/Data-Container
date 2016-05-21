@@ -85,6 +85,8 @@ private:
     listElem tail;
 
     unsigned int elements;
+
+    listElem getNode(int) const;
 };
 
 // --------------------------------------------------------------------------------
@@ -115,7 +117,32 @@ bool aghDlist<T>::insert(const int index, const T& value) {
     if (index > this->elements || index < 0)
         return false;
 
-    listElem oldElem;
+    listElem tmp;
+    listElem newElem;
+    
+    newElem = new Node<T>(value);
+    
+    if(index > 0) {
+        oldElem = this->getNode(index-1);
+        newElem -> prev = oldElem;
+        newElem -> next = oldElem -> next;
+        oldElem -> next = newElem;
+        if(index != this->elements) 
+            (newElem->next)->prev = newElem;
+    }
+    else {
+        newElem -> next = this->head;
+        this->head = newElem;
+        if(index != this->elements)
+            (newElem->next)->prev = newElem;
+    }
+    
+    if(index != this->elements)
+        (newElem->next)->prev = newElem;
+    else
+        this->tail = newElem;
+    ++(this->elements);
+    return true;
 }
 
 // --------------------------------------------------------------------------------
@@ -154,5 +181,36 @@ aghContainer<T> &aghDlist<T>::operator=(const aghContainer<T> &container) {
 }
 
 // --------------------------------------------------------------------------------
+
+template<typename T>
+aghDlist<T>::listElem aghDlist<T>::getNode(int index) const {
+    if(index<0 || index >=elements)
+        throw aghException(1, "Wrong index demanded", __FILE__, __LINE__);
+    
+    bool callBackwards = (index > this->size() / 2);
+    
+    listElem iter;
+    int pos;
+    
+    if(callBackwards) {
+        iter = this->tail;
+        pos = this->size() - 1;
+        while( pos != index ) {
+            iter = iter->prev;
+            --pos;
+        
+        }
+        return iter;
+    }
+    else {
+        iter = this->head;
+        pos = 0;
+        while( pos != index ) {
+            iter = iter->next;
+            ++pos;
+        }
+        return iter;
+    }
+}
 
 #endif
