@@ -122,7 +122,7 @@ bool aghSlist<T>::insert(const int index, const T &value) {
         oldElem->next = newElem;
     }
     else {
-        oldElem = this->getNode(0);
+        oldElem = (!this->isEmpty()) ? this->getNode(0) : nullptr;
         newElem = new Node<T>(value, oldElem);
         this->head = newElem;
     }
@@ -130,7 +130,7 @@ bool aghSlist<T>::insert(const int index, const T &value) {
     if (index == this->size())
         this->tail = newElem;
 
-    ++elements;
+    ++this->elements;
 
     return true;
 }

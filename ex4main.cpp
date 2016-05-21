@@ -9,7 +9,7 @@ void showTestResult(int, bool);
 
 int main(void)
 {
-    cout << "main by kk. Last updated 15.04.2013\n";
+    cout << "main by kk. modified by viters. Last updated 21.05.2016\n";
 
     aghDlist<aghDlist<int> > a;
     aghContainer<int> *c1 = new aghDlist<int>;
@@ -44,7 +44,7 @@ int main(void)
         c2->at(100);
         (*c2)[-1];
         (*c2)[100];
-        showTestResult(3, true);
+        showTestResult(3, false);
     }
     catch (aghException &e)
     {
@@ -139,6 +139,26 @@ int main(void)
     {
         showTestResult(15, false);
     }
+
+    // ---- testy dla aghSlist ----
+
+    // aghSlist<aghSlist<int> > slist1;
+    aghContainer<int> *slistptr1 = new aghSlist<int>;
+    aghContainer<int> *slistptr2;
+    // slist1 << *((aghSlist<int> *)slistptr1);
+
+    // 16th test - dodawanie do pojemnika stalych, zmiennych, tymczasowych
+    slistptr1->append(3);
+    slistptr1->insert(0, 1 + 1);
+    slistptr1->insert(slistptr1->size(), slistptr1->size());
+
+    bool t16 = slistptr1->size() == 3;
+    int ttab16[] = {2, 3, 2};
+    for (int i = 0; i < 3; i++) {
+        t16 = t16 && (ttab16[i] == slistptr1->at(i));
+    }
+
+    showTestResult(16, t16);
 
     cout << "Finally, this is the end...\n";
 
