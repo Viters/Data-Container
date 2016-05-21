@@ -76,7 +76,7 @@ private:
         Node<Y> *next;
         Node<Y> *prev;
 
-        Node(Y value, Node *next = nullptr, Node *prev = nullptr) : value(value), next(next), prev(prev) { }
+        Node(Y value, Node<Y> *next = nullptr, Node<Y> *prev = nullptr) : value(value), next(next), prev(prev) { }
     };
 
     typedef Node<T> *listElem;
@@ -141,6 +141,7 @@ bool aghDlist<T>::insert(const int index, const T &value) {
         (newElem->next)->prev = newElem;
     else
         this->tail = newElem;
+
     ++(this->elements);
     return true;
 }
