@@ -70,15 +70,20 @@ public:
     aghContainer<T> &operator=(const aghContainer<T> &);
 
 private:
+    template<typename Y>
     struct Node{
-        T value;
-        Node * next;
-        Node * prev;
+        Y value;
+        Node<Y> * next;
+        Node<Y> * prev;
 
-        Node(T value, Node* next = nullptr, Node* prev = nullptr) : value(value), next(next), prev(prev) {}
+        Node(Y value, Node* next = nullptr, Node* prev = nullptr) : value(value), next(next), prev(prev) {}
     };
-    Node * head;
-    Node * tail;
+
+    typedef Node<T> *listElem ;
+
+    listElem head;
+    listElem tail;
+
     unsigned int elements;
 };
 
@@ -92,7 +97,7 @@ aghDlist<T>::aghDlist() : head(nullptr), tail(nullptr), elements(0) {}
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghDlist<T>::aghDlist(const aghContainer<T> &container) : head(nullptr) {
+aghDlist<T>::aghDlist(const aghContainer<T> &container) : head(nullptr), tail(nullptr) {
     this->copy(container);
 }
 
@@ -100,14 +105,17 @@ aghDlist<T>::aghDlist(const aghContainer<T> &container) : head(nullptr) {
 
 template<typename T>
 aghDlist<T>::~aghDlist() {
-
+    this->clear();
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 bool aghDlist<T>::insert(const int index, const T& value) {
-    
+    if (index > this->elements || index < 0)
+        return false;
+
+    listElem oldElem;
 }
 
 // --------------------------------------------------------------------------------
@@ -134,14 +142,15 @@ bool aghDlist<T>::remove(const int pos) {
 
 template<typename T>
 void aghDlist<T>::clear(void) {
-
+    
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 aghContainer<T> &aghDlist<T>::operator=(const aghContainer<T> &container) {
-    
+    this->copy(container);
+    return *this;
 }
 
 // --------------------------------------------------------------------------------
