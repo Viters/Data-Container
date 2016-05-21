@@ -184,7 +184,7 @@ bool aghSlist<T>::remove(const int index) {
 template<typename T>
 void aghSlist<T>::clear(void) {
     listElem toRemove;
-    while (!this->head) {
+    while (this->head) {
         toRemove = this->head;
         this->head = head->next;
         delete toRemove;
