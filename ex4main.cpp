@@ -169,7 +169,7 @@ int main(void)
     showTestResult(16, t16);
 
     // 17th test - konstruktor
-    slistptr2 = new aghDlist<int>(*slistptr1);
+    slistptr2 = new aghSlist<int>(*slistptr1);
     bool t17 = slistptr2->size() == 3;
     int ttab17[] = {2, 3, 2};
     for (int i = 0; i < 3; i++) {
