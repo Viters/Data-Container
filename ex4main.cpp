@@ -144,7 +144,7 @@ int main(void)
         showTestResult(15, false);
     }
 
-    cout << "Finally, this is the end... or isn't it?\n";
+    cout << "Finally, this is the end... or isn't?\n";
 
     // ---- testy dla aghSlist - lista pojedyncza ----
 
