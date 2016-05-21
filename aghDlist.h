@@ -190,14 +190,14 @@ template<typename T>
 void aghDlist<T>::clear(void) {
     listElem current = this->head;
     listElem following;
-    while (!current) {
+    while (current) {
         following = current->next;
         delete current;
         current = following;
     }
     this->head = nullptr;
     this->tail = nullptr;
-    this - elements = 0;
+    this->elements = 0;
 }
 
 // --------------------------------------------------------------------------------
