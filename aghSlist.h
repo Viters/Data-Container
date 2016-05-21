@@ -174,7 +174,7 @@ bool aghSlist<T>::remove(const int index) {
     if (index == this->size() - 1)
         this->tail = prevElem;
 
-    --elements;
+    --this->elements;
 
     return true;
 }
