@@ -81,6 +81,8 @@ private:
     listElem tail;
 
     unsigned int elements;
+
+    listElem getNode(int) const;
 };
 
 // --------------------------------------------------------------------------------
@@ -115,12 +117,12 @@ bool aghSlist<T>::insert(const int index, const T &value) {
     listElem newElem;
 
     if (index > 0) {
-        oldElem = this->at(index - 1);
+        oldElem = this->getNode(index - 1);
         newElem = new Node<T>(value, oldElem->next);
         oldElem->next = newElem;
     }
     else {
-        oldElem = this->at(0);
+        oldElem = this->getNode(0);
         newElem = new Node<T>(value, oldElem);
         this->head = newElem;
     }
@@ -137,21 +139,7 @@ bool aghSlist<T>::insert(const int index, const T &value) {
 
 template<typename T>
 T &aghSlist<T>::at(const int index) const {
-    if (index < 0 || index >= this->elements)
-        throw aghException(1, "Wrong index demanded", __FILE__, __LINE__);
-
-    bool callForLast = (index == this->size() - 1);
-
-    if (callForLast) {
-        return *(this->tail);
-    }
-    else {
-        listElem iter = this->head;
-        for (int i = 0; i < index; ++i) {
-            iter = iter->next;
-        }
-        return *iter;
-    }
+    this->getNode(index)->value;
 }
 
 // --------------------------------------------------------------------------------
@@ -172,13 +160,13 @@ bool aghSlist<T>::remove(const int index) {
     listElem toRemove;
 
     if (index > 0) {
-        prevElem = this->at(index - 1);
+        prevElem = this->getNode(index - 1);
         toRemove = prevElem->next;
         prevElem->next = toRemove->next;
         delete toRemove;
     }
     else {
-        toRemove = this->at(0);
+        toRemove = this->getNode(0);
         this->head = toRemove->next;
         delete toRemove;
     }
@@ -215,4 +203,24 @@ aghContainer<T> &aghSlist<T>::operator=(const aghContainer<T> &source) {
 
 // --------------------------------------------------------------------------------
 
+template<typename T>
+typename aghSlist<T>::listElem aghSlist<T>::getNode(int index) const {
+    if (index < 0 || index >= this->elements)
+        throw aghException(1, "Wrong index demanded", __FILE__, __LINE__);
+
+    bool callForLast = (index == this->size() - 1);
+
+    if (callForLast) {
+        return this->tail;
+    }
+    else {
+        listElem iter = this->head;
+        for (int i = 0; i < index; ++i) {
+            iter = iter->next;
+        }
+        return iter;
+    }
+}
+
 #endif
+
