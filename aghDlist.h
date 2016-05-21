@@ -117,7 +117,7 @@ bool aghDlist<T>::insert(const int index, const T& value) {
     if (index > this->elements || index < 0)
         return false;
 
-    listElem tmp;
+    listElem oldElem;
     listElem newElem;
     
     newElem = new Node<T>(value);
@@ -149,7 +149,7 @@ bool aghDlist<T>::insert(const int index, const T& value) {
 
 template<typename T>
 T & aghDlist<T>::at(const int pos) const {
-
+    return getNode(pos) -> value;
 }
 
 // --------------------------------------------------------------------------------
@@ -163,13 +163,41 @@ int aghDlist<T>::size(void) const {
 
 template<typename T>
 bool aghDlist<T>::remove(const int pos) {
+    if(index>=this->elements || index < 0)
+        return false;
+
+    listElem toRemove = this->getNode(pos);
+    
+    if(index > 0)
+        (toRemove -> prev) -> next = toRemove -> next;
+    else
+        this -> head = toRemove -> next;
+    
+    if(index != this->elements-1)
+        (toRemove -> next) -> prev = toRemove -> prev;
+    else
+        this -> tail = toRemove->prev;
+
+    delete toRemove;
+    --(this->elements);
+    return true;  
+    
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 void aghDlist<T>::clear(void) {
-    
+    listElem current = this->head;
+    listElem following;
+    while(!current){
+        following = current -> next;
+        delete current;
+        current = following;
+    }
+    this->head = nullptr;
+    this->tail = nullptr;
+    this-elements =0;
 }
 
 // --------------------------------------------------------------------------------
