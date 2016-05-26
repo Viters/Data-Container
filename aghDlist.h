@@ -127,14 +127,10 @@ bool aghDlist<T>::insert(const int index, const T &value) {
         newElem->prev = oldElem;
         newElem->next = oldElem->next;
         oldElem->next = newElem;
-        if (index != this->elements)
-            (newElem->next)->prev = newElem;
     }
     else {
         newElem->next = this->head;
         this->head = newElem;
-        if (index != this->elements)
-            (newElem->next)->prev = newElem;
     }
 
     if (index != this->elements)
