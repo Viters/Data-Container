@@ -67,6 +67,9 @@ public:
     aghContainer<T> &operator=(const aghContainer<T> &);
 
 private:
+    /**
+     * Node structure to hold data in the list.
+     */
     template<typename Y>
     struct Node {
         Y value;
@@ -75,13 +78,22 @@ private:
         Node(Y value, Node<Y> *next = nullptr) : value(value), next(next) { }
     };
 
+    /**
+     * This typedef simplifies operating on list elements in list methods.
+     */
     typedef Node<T> *listElem;
 
-    listElem head;
-    listElem tail;
+    listElem head; /**< Pointer to first element of a list. */
+    listElem tail; /**< Pointer to last element of a list. */
 
-    unsigned int elements;
+    unsigned int elements; /**< Number of elements in a list. */
 
+    /**
+     * Retrieve a specified element of a list.
+     *
+     * @param number of required element
+     * @return pointer to a Node element
+     */
     listElem getNode(int) const;
 };
 
