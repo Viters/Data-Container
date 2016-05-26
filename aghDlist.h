@@ -2,7 +2,7 @@
  * @file aghDlist.h
  * @author Łukasz Mielczarek, Łukasz Szcześniak
  * @date 19|05|2016
- * @version 0.1
+ * @version 1.0
  * @brief Contains declaration and definition of aghDlist template class.
 */
 
