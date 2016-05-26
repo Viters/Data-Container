@@ -2,7 +2,7 @@
  * @file aghSlist.h
  * @author Łukasz Mielczarek, Łukasz Szcześniak
  * @date 19|05|2016
- * @version 0.1
+ * @version 1.0
  * @brief Contains declaration and definition of aghSlist template class.
 */
 
@@ -130,7 +130,7 @@ bool aghSlist<T>::insert(const int index, const T &value) {
     if (index == this->size())
         this->tail = newElem;
 
-    ++this->elements;
+    ++(this->elements);
 
     return true;
 }
@@ -174,7 +174,7 @@ bool aghSlist<T>::remove(const int index) {
     if (index == this->size() - 1)
         this->tail = prevElem;
 
-    --this->elements;
+    --(this->elements);
 
     return true;
 }
@@ -223,4 +223,3 @@ typename aghSlist<T>::listElem aghSlist<T>::getNode(int index) const {
 }
 
 #endif
-
