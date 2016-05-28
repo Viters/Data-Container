@@ -23,10 +23,20 @@ template<typename T>
 class aghDlist :
         public aghContainer<T> {
 public:
+    /**
+     * Default constructor.
+     */
     aghDlist();
 
+    /**
+     * Copy constructor
+     * @param another aghDlist
+     */
     aghDlist(const aghContainer<T> &);
 
+    /**
+     * Destructor.
+     */
     ~aghDlist();
 
     /**
@@ -70,22 +80,43 @@ public:
     aghContainer<T> &operator=(const aghContainer<T> &);
 
 private:
+    /**
+     * Structure template to keep values added to the list
+     */
     template<typename Y>
     struct Node {
+        /**
+         * Value
+         */
         Y value;
+        /**
+         * Pointer to the next structure
+         */
         Node<Y> *next;
+        /**
+         * Pointer to the previous tructure
+         */
         Node<Y> *prev;
-
+        
+        /**
+         * Structure's parameterized constructor
+         */
         Node(Y value, Node<Y> *next = nullptr, Node<Y> *prev = nullptr) : value(value), next(next), prev(prev) { }
     };
 
-    typedef Node<T> *listElem;
+    
+    typedef Node<T> *listElem; //< Allows to easier access to the structure
+    
+    listElem head; //< Pointer to the first structure
+    listElem tail; //< Pointer to the last structure
 
-    listElem head;
-    listElem tail;
+    unsigned int elements; //< Number of elements in list
 
-    unsigned int elements;
-
+    /**
+     * Get the pointer to the structure at specified position
+     * @param position
+     * @return pointer to the structure
+     */
     listElem getNode(int) const;
 };
 

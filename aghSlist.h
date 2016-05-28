@@ -21,10 +21,20 @@ template<typename T>
 class aghSlist :
         public aghContainer<T> {
 public:
+    /**
+     * Default constructor
+     */
     aghSlist();
-
+ 
+    /**
+     * Copy constructor
+     * @param another aghSlist
+     */
     aghSlist(const aghContainer<T> &);
 
+    /**
+     * Destructor
+     */
     ~aghSlist();
 
     /**
