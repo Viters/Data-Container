@@ -89,9 +89,22 @@ private:
      */
     template<typename Y>
     struct Node {
+        /**
+         * Value that node holds.
+         */
         Y value;
+        /**
+         * Pointer to the next node.
+         */
         Node<Y> *next;
+        /**
+         * Pointer to the previous node.
+         */
+        Node<Y> *prev;
 
+        /**
+         * Node's parameterized constructor
+         */
         Node(Y value, Node<Y> *next = nullptr) : value(value), next(next) { }
     };
 

@@ -91,34 +91,37 @@ private:
     template<typename Y>
     struct Node {
         /**
-         * Value
+         * Value that node holds.
          */
         Y value;
         /**
-         * Pointer to the next structure
+         * Pointer to the next node.
          */
         Node<Y> *next;
         /**
-         * Pointer to the previous tructure
+         * Pointer to the previous node.
          */
         Node<Y> *prev;
 
         /**
-         * Structure's parameterized constructor
+         * Node's parameterized constructor
          */
         Node(Y value, Node<Y> *next = nullptr, Node<Y> *prev = nullptr) : value(value), next(next), prev(prev) { }
     };
 
+    /**
+     * This typedef simplifies operating on list elements in list methods.
+     */
+    typedef Node<T> *listElem;
 
-    typedef Node<T> *listElem; //< Allows to easier access to the structure
+    listElem head; /**< Pointer to the first structure. */
+    listElem tail; /**< Pointer to the last structure. */
 
-    listElem head; //< Pointer to the first structure
-    listElem tail; //< Pointer to the last structure
-
-    unsigned int elements; //< Number of elements in list
+    unsigned int elements; /**< Number of elements in list. */
 
     /**
      * Get the pointer to the structure at specified position
+     *
      * @param position
      * @return pointer to the structure
      */
