@@ -1,7 +1,7 @@
 /**
  * @file aghContainer.h
  * @author Łukasz Mielczarek, Łukasz Szcześniak
- * @date 05|05|2016
+ * @date 05/05/2016
  * @version 1.0
  * @brief Contains declaration and definitions of aghContainer template class.
  */
@@ -17,7 +17,27 @@
 using namespace std;
 
 /**
- * Class template for data containers.
+ * @class aghContainer
+ *
+ * @brief Pure virtual class template for data containers.
+ *
+ * Pure virtual class template to create data container classes
+ * such as list, vector etc. Just derive from this class, implement
+ * all pure virtual methods:
+ * $ virtual bool insert(const int, T const &) = 0;
+ * $ virtual T &at(const int) const = 0;
+ * $ virtual int size(void) const = 0;
+ * $ virtual bool remove(const int) = 0;
+ * $ virtual void clear(void) = 0;
+ * the rest will work just fine.
+ * You can reimplement other methods to improve efficiency.
+ * Containers are compatible with themselves.
+ *
+ * @author Łukasz Mielczarek, Łukasz Szcześniak
+ *
+ * @version 1.0
+ *
+ * @date 05/05/2016
  */
 template<typename T>
 class aghContainer {
@@ -173,7 +193,7 @@ public:
     virtual aghContainer<T> &operator+=(const aghContainer<T> &right);
 
     /**
-     * Operator to add element at specified position.
+     * Operator to add element to the container.
      *
      * @param new element
      * @return reference to itself
@@ -204,15 +224,15 @@ public:
 
 template<typename T>
 void aghContainer<T>::append(const T &newValue) {
-	this->insert(this->size(), newValue);
+    this->insert(this->size(), newValue);
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 void aghContainer<T>::append(const aghContainer &newValue) {
-	for (int i = 0; i < newValue.size(); ++i)
-		this->insert(this->size(), newValue.at(i));
+    for (int i = 0; i < newValue.size(); ++i)
+        this->insert(this->size(), newValue.at(i));
 }
 
 // --------------------------------------------------------------------------------
@@ -265,7 +285,7 @@ void aghContainer<T>::copy(const aghContainer<T> &source) {
     if (this == &source)
         return;
 
-    if(!this->isEmpty())
+    if (!this->isEmpty())
         this->clear();
 
     for (int i = 0; i < source.size(); ++i) {

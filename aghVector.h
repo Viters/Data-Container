@@ -1,7 +1,7 @@
 /**
  * @file aghVector.h
  * @author Łukasz Mielczarek, Łukasz Szcześniak
- * @date 05|05|2016
+ * @date 05/05/2016
  * @version 1.0
  * @brief Contains declaration and definitions of aghVector template class.
 */
@@ -12,13 +12,18 @@
 #define DATA_CONTAINER_AGHVECTOR_H
 
 #include "aghContainer.h"
-#include <iostream>
-
-using namespace std;
 
 /**
- * Class template to provide operation on vectors.
-*/
+ * @class aghVector
+ *
+ * @brief Class template to provide vector container with interface.
+ *
+ * @author Łukasz Mielczarek, Łukasz Szcześniak
+ *
+ * @version 1.0
+ *
+ * @date 05/05/2016
+ */
 template<typename T>
 class aghVector :
         public aghContainer<T> {

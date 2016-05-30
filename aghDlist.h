@@ -1,7 +1,7 @@
 /**
  * @file aghDlist.h
  * @author Łukasz Mielczarek, Łukasz Szcześniak
- * @date 19|05|2016
+ * @date 19/05/2016
  * @version 1.0
  * @brief Contains declaration and definition of aghDlist template class.
 */
@@ -12,13 +12,18 @@
 #define DATA_CONTAINER_AGHLIST_H
 
 #include "aghContainer.h"
-#include <iostream>
-
-using namespace std;
 
 /**
- * Class template to provide operations on double-sided list
-*/
+ * @class aghDlist
+ *
+ * @brief Class template to provide double-sided list container with interface.
+ *
+ * @author Łukasz Mielczarek, Łukasz Szcześniak
+ *
+ * @version 1.0
+ *
+ * @date 19/05/2016
+ */
 template<typename T>
 class aghDlist :
         public aghContainer<T> {
@@ -97,16 +102,16 @@ private:
          * Pointer to the previous tructure
          */
         Node<Y> *prev;
-        
+
         /**
          * Structure's parameterized constructor
          */
         Node(Y value, Node<Y> *next = nullptr, Node<Y> *prev = nullptr) : value(value), next(next), prev(prev) { }
     };
 
-    
+
     typedef Node<T> *listElem; //< Allows to easier access to the structure
-    
+
     listElem head; //< Pointer to the first structure
     listElem tail; //< Pointer to the last structure
 
@@ -117,7 +122,7 @@ private:
      * @param position
      * @return pointer to the structure
      */
-    listElem getNode(int) const;
+    listElem getNode(const int) const;
 };
 
 // --------------------------------------------------------------------------------
@@ -145,7 +150,7 @@ aghDlist<T>::~aghDlist() {
 
 template<typename T>
 bool aghDlist<T>::insert(const int index, const T &value) {
-    if (index > this->elements || index < 0)
+    if (index < 0 || index > this->elements)
         return false;
 
     listElem oldElem;
@@ -191,7 +196,7 @@ int aghDlist<T>::size(void) const {
 
 template<typename T>
 bool aghDlist<T>::remove(const int index) {
-    if (index >= this->elements || index < 0)
+    if (index < 0 || index >= this->elements)
         return false;
 
     listElem toRemove = this->getNode(index);
@@ -239,7 +244,7 @@ aghContainer<T> &aghDlist<T>::operator=(const aghContainer<T> &container) {
 // --------------------------------------------------------------------------------
 
 template<typename T>
-typename aghDlist<T>::listElem aghDlist<T>::getNode(int index) const {
+typename aghDlist<T>::listElem aghDlist<T>::getNode(const int index) const {
     if (index < 0 || index >= elements)
         throw aghException(1, "Wrong index demanded", __FILE__, __LINE__);
 

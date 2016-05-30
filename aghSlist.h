@@ -1,7 +1,7 @@
 /**
  * @file aghSlist.h
  * @author Łukasz Mielczarek, Łukasz Szcześniak
- * @date 19|05|2016
+ * @date 19/05/2016
  * @version 1.0
  * @brief Contains declaration and definition of aghSlist template class.
 */
@@ -12,11 +12,18 @@
 #define DATA_CONTAINER_AGHSLIST_H
 
 #include "aghContainer.h"
-#include <iostream>
 
 /**
- * Class template to provide operations on single-sided list.
-*/
+ * @class aghSlist
+ *
+ * @brief Class template to provide single-sided list container with interface.
+ *
+ * @author Łukasz Mielczarek, Łukasz Szcześniak
+ *
+ * @version 1.0
+ *
+ * @date 19/05/2016
+ */
 template<typename T>
 class aghSlist :
         public aghContainer<T> {
@@ -25,7 +32,7 @@ public:
      * Default constructor
      */
     aghSlist();
- 
+
     /**
      * Copy constructor
      * @param another aghSlist
@@ -104,7 +111,7 @@ private:
      * @param number of required element
      * @return pointer to a Node element
      */
-    listElem getNode(int) const;
+    listElem getNode(const int) const;
 };
 
 // --------------------------------------------------------------------------------
@@ -132,7 +139,7 @@ aghSlist<T>::~aghSlist() {
 
 template<typename T>
 bool aghSlist<T>::insert(const int index, const T &value) {
-    if (index > this->elements || index < 0)
+    if (index < 0 || index > this->elements)
         return false;
 
     listElem oldElem;
@@ -175,7 +182,7 @@ int aghSlist<T>::size(void) const {
 
 template<typename T>
 bool aghSlist<T>::remove(const int index) {
-    if (index >= this->elements || index < 0)
+    if (index < 0 || index >= this->elements)
         return false;
 
     listElem prevElem;
@@ -226,7 +233,7 @@ aghContainer<T> &aghSlist<T>::operator=(const aghContainer<T> &source) {
 // --------------------------------------------------------------------------------
 
 template<typename T>
-typename aghSlist<T>::listElem aghSlist<T>::getNode(int index) const {
+typename aghSlist<T>::listElem aghSlist<T>::getNode(const int index) const {
     if (index < 0 || index >= this->elements)
         throw aghException(1, "Wrong index demanded", __FILE__, __LINE__);
 
