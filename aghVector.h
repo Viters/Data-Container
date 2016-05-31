@@ -76,7 +76,7 @@ public:
     void clear(void);
 
     /**
-     * Make copy of another containe
+     * Make copy of another container.
      *
      * @param another container
      */
@@ -136,7 +136,7 @@ bool aghVector<T>::insert(const int index, const T &newValue) {
     tmp[index] = newValue;
     this->destroyVector();
     this->vector = tmp;
-    ++this->elements;
+    ++(this->elements);
     return true;
 }
 
@@ -167,7 +167,7 @@ bool aghVector<T>::remove(const int index) {
         tmp[i] = this->vector[(i < index ? i : i + 1)];
     delete[] this->vector;
     this->vector = tmp;
-    this->elements--;
+    --(this->elements);
     return true;
 }
 
@@ -191,11 +191,11 @@ aghContainer<T> &aghVector<T>::operator=(const aghContainer<T> &another) {
 
 template<typename T>
 void aghVector<T>::copy(const aghContainer<T> &source) {
-    if (this != &source)
+    if (this == &source)
         return;
 
-    if (this->isEmpty())
-        this->destroyVector();
+    if (!this->isEmpty())
+        this->clear();
 
     this->elements = source.size();
     this->vector = new T[this->elements];
