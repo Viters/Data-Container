@@ -303,7 +303,7 @@ int main(void)
     bool t31 = vectorptr1->size() == 3;
     int ttab31[] = {2, 3, 2};
     for (int i = 0; i < 3; i++) {
-        t31 = t31 && (ttab16[i] == vectorptr1->at(i));
+        t31 = t31 && (ttab31[i] == vectorptr1->at(i));
     }
 
     showTestResult(31, t31);
