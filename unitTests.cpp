@@ -2,18 +2,24 @@
 #include <iostream>
 
 using namespace std;
-// ---------------------------------------------------------
 
-void showTestResult(int, bool);
-// ---------------------------------------------------------
+void showTestResult(int number, bool result)
+{
+    if (result) {
+        cout << "[" << number << "] PASSED\n";
+    }
+    else {
+        cout << "[" << number << "] FAILED\n";
+    }
+}
 
 int main(void)
 {
-    cout << "main by kk. modified by viters. Last updated 21.05.2016\n";
+    // -----------------------------------------------
+    // ------ aghDlist tests - double-sided list -----
+    // -----------------------------------------------
 
-    // ---- testy dla aghDlist - listy podwojnej ----
-
-    cout << "Testy dla aghDlist:\n";
+    cout << "Testing aghDlist:\n";
 
     aghDlist<aghDlist<int> > a;
     aghContainer<int> *c1 = new aghDlist<int>;
@@ -144,11 +150,11 @@ int main(void)
         showTestResult(15, false);
     }
 
-    cout << "Finally, this is the end... or isn't?\n";
+    // -----------------------------------------------
+    // ------ aghSlist tests - single-sided list -----
+    // -----------------------------------------------
 
-    // ---- testy dla aghSlist - lista pojedyncza ----
-
-    cout << "\nTesty dla aghSlist:\n";
+    cout << "\nTesting aghSlist:\n";
 
     aghSlist<aghSlist<int> > slist1;
     aghContainer<int> *slistptr1 = new aghSlist<int>;
@@ -278,19 +284,139 @@ int main(void)
         showTestResult(30, false);
     }
 
-    cout << "Now it definitely is the end...\n";
+    // -----------------------------------------------
+    // ------ aghVector tests - vector container -----
+    // -----------------------------------------------
+
+    cout << "\nTesting aghVector:\n";
+
+    aghVector<aghVector<int> > vector1;
+    aghContainer<int> *vectorptr1 = new aghVector<int>;
+    aghContainer<int> *vectorptr2;
+    vector1 << *((aghVector<int> *)vectorptr1);
+
+    // 31th test - dodawanie do pojemnika stalych, zmiennych, tymczasowych
+    vectorptr1->append(3);
+    vectorptr1->insert(0, 1 + 1);
+    vectorptr1->insert(vectorptr1->size(), vectorptr1->size());
+
+    bool t31 = vectorptr1->size() == 3;
+    int ttab31[] = {2, 3, 2};
+    for (int i = 0; i < 3; i++) {
+        t31 = t31 && (ttab16[i] == vectorptr1->at(i));
+    }
+
+    showTestResult(31, t31);
+
+    // 32th test - konstruktor
+    vectorptr2 = new aghVector<int>(*vectorptr1);
+    bool t32 = vectorptr2->size() == 3;
+    int ttab32[] = {2, 3, 2};
+    for (int i = 0; i < 3; i++) {
+        t32 = t32 && (ttab32[i] == vectorptr2->at(i));
+    }
+    showTestResult(32, t32);
+
+    // 33th test - odwolania
+    try
+    {
+        vectorptr2->at(-1);
+        vectorptr2->at(100);
+        (*vectorptr2)[-1];
+        (*vectorptr2)[100];
+        showTestResult(33, false);
+    }
+    catch (aghException &e)
+    {
+        showTestResult(33, true);
+    }
+    catch (...) {
+        showTestResult(33, false);
+    }
+
+    // 34th test - usuwanie z pojemnika
+    vectorptr1->clear();
+    for (int i = 0; i < 5; i++) {
+        *vectorptr1 += i;
+    }
+    *vectorptr1 << 4 << 2 + 3;
+    vectorptr1->remove(2);
+
+    int ttab34[] = {0, 1, 3, 4, 4, 5};
+    bool t34 = vectorptr1->size() == 6;
+    for (int i = 0; t34 && i < 6; i++) {
+        t34 = t34 && (ttab34[i] == vectorptr1->at(i));
+    }
+    showTestResult(34, t34);
+
+    // 35th test - sprawdzenie dzialanie konstruktora kopiujacego
+    bool t35 = vectorptr2->size() == 3;
+    int ttab35[] = {2, 3, 2};
+    for (int i = 0; i < 3; i++) {
+        t35 = t35 && (ttab35[i] == vectorptr2->at(i));
+    }
+    showTestResult(35, t35);
+
+    // 36th test - metoda indexOf
+    showTestResult(36, vectorptr1->indexOf(3) == 2);
+
+    // 37th test - metoda indexOf
+    showTestResult(37, vectorptr1->indexOf(4, 3) == 3);
+
+    // 38th test - metoda indexOf
+    showTestResult(38, vectorptr1->indexOf(4, 4) == 4);
+
+    // 39th test - metoda indexOf
+    showTestResult(39, vectorptr1->indexOf(3, 3) == -1);
+
+    // 40th test - metoda contains
+    showTestResult(40, !vectorptr1->contains(-6));
+
+    // 41th test - operacje na pojemniku w pojemniku
+    for (int i = 3; i >= 0; i--) {
+        vector1.at(0) += i + 1;
+    }
+
+    bool t41 = vector1.at(0).size() == 4;
+    int ttab41[] = {4, 3, 2, 1};
+    for (int i = 0; t41 && i < 4; i++) {
+        t41 = t41 && (vector1.at(0).at(i) == ttab41[i]);
+    }
+    showTestResult(41, t41);
+
+    // 42th test - usuwanie z pojemnika
+    vector1.at(0).remove(2);   // 4,3,1
+    vector1.at(0).remove(1);   // 4,1
+    vector1.at(0).remove(1);   // 4
+    vector1.at(0).remove(0);   // empty
+    showTestResult(42, vector1.at(0).isEmpty());
+
+    // 43th test - dzialanie operatora przypisania
+    *vectorptr2 = vector1.at(0) = *vectorptr1;
+    showTestResult(43, *vectorptr1 == vector1.at(0));
+
+    // 44th test - operator przypisania
+    try
+    {
+        *vectorptr2 = *vectorptr2;
+        showTestResult(44, *vectorptr1 == *vectorptr2);
+    }
+    catch (...)
+    {
+        showTestResult(44, false);
+    }
+
+    // 45th test - zwalnianie pamieci
+    try
+    {
+        delete vectorptr1;
+        delete vectorptr2;
+        showTestResult(45, true);
+    }
+    catch (...)
+    {
+        showTestResult(45, false);
+    }
 
     return 0;
 }
-// ---------------------------------------------------------
-
-void showTestResult(int _ti, bool _r)
-{
-    if (_r) {
-        cout << "Test" << _ti << " PASSED\n";
-    }
-    else {
-        cout << "Test" << _ti << " FAILED\n";
-    }
-}
-// ---------------------------------------------------------
