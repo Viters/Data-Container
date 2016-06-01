@@ -134,7 +134,7 @@ bool aghVector<T>::insert(const int index, const T &newValue) {
     for (int i = 0; i < this->elements; ++i)
         tmp[(i < index ? i : i + 1)] = this->vector[i];
     tmp[index] = newValue;
-    
+
     this->destroyVector();
     this->vector = tmp;
     ++(this->elements);
@@ -170,7 +170,7 @@ bool aghVector<T>::remove(const int index) {
     if (this->elements > 0)
         tmp = new T[this->elements];
 
-    for (int i = 0; i < this->elements - 1; i++)
+    for (int i = 0; i < this->elements; i++)
         tmp[i] = this->vector[(i < index ? i : i + 1)];
 
     delete[] this->vector;
