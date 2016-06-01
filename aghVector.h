@@ -111,7 +111,7 @@ aghVector<T>::aghVector() : vector(nullptr), elements(0) {
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghVector<T>::aghVector(const aghContainer<T> &another) : vector(nullptr) {
+aghVector<T>::aghVector(const aghContainer<T> &another) : vector(nullptr), elements(0) {
     this->copy(another);
 }
 

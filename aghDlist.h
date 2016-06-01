@@ -138,7 +138,7 @@ aghDlist<T>::aghDlist() : head(nullptr), tail(nullptr), elements(0) { }
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghDlist<T>::aghDlist(const aghContainer<T> &container) : head(nullptr), tail(nullptr) {
+aghDlist<T>::aghDlist(const aghContainer<T> &container) : head(nullptr), tail(nullptr), elements(0) {
     this->copy(container);
 }
 
