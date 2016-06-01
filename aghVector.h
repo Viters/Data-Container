@@ -128,25 +128,27 @@ template<typename T>
 bool aghVector<T>::insert(const int index, const T &newValue) {
     if (index > this->elements || index < 0)
         return false;
+
     T *tmp = new T[this->elements + 1];
-    if (!tmp)
-        throw aghException(1, "No memory that could be allocated", __FILE__, __LINE__);
+
     for (int i = 0; i < this->elements; ++i)
         tmp[(i < index ? i : i + 1)] = this->vector[i];
     tmp[index] = newValue;
+    
     this->destroyVector();
     this->vector = tmp;
     ++(this->elements);
+
     return true;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-T &aghVector<T>::at(const int pos) const {
-    if (pos < 0 || pos >= this->elements)
+T &aghVector<T>::at(const int index) const {
+    if (index < 0 || index >= this->elements)
         throw aghException(1, "Wrong index demanded", __FILE__, __LINE__);
-    return this->vector[pos];
+    return this->vector[index];
 }
 
 // --------------------------------------------------------------------------------
@@ -162,12 +164,18 @@ template<typename T>
 bool aghVector<T>::remove(const int index) {
     if (index < 0 || index >= this->elements)
         return false;
-    T *tmp = new T[elements - 1];
-    for (int i = 0; i < elements - 1; i++)
+
+    --(this->elements);
+    T *tmp = nullptr;
+    if (this->elements > 0)
+        tmp = new T[this->elements];
+
+    for (int i = 0; i < this->elements - 1; i++)
         tmp[i] = this->vector[(i < index ? i : i + 1)];
+
     delete[] this->vector;
     this->vector = tmp;
-    --(this->elements);
+
     return true;
 }
 
@@ -198,7 +206,9 @@ void aghVector<T>::copy(const aghContainer<T> &source) {
         this->clear();
 
     this->elements = source.size();
-    this->vector = new T[this->elements];
+    if (this->elements > 0)
+        this->vector = new T[this->elements];
+
     for (int i = 0; i < this->elements; ++i)
         this->vector[i] = source.at(i);
 
