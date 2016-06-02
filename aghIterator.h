@@ -22,8 +22,34 @@
  *
  * @date 01/06/2016
  */
+template<typename T>
 class aghIterator {
-
+public:
+    first();
+    last();
+    next();
+    prev();
+    current();
+    atFirst();
+    atLast();
+    size();
+    operator=(const aghContainer<T> *);
+    operator int() const;
+    T& operator*();
+    T& operator[](int);
+    operator+(int);
+    operator-(int);
+    operator+=(int);
+    operator-=(int);
+    operator++();
+    aghIterator& operator++(int);
+    operator--();
+    operator--(int);
+    bool operator==(const aghIterator<T> &);
+    bool operator!=(const aghIterator<T> &);
+private:
+    int position;
+    aghContainer * iter;
 };
 
 
