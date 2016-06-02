@@ -91,13 +91,25 @@ public:
     aghContainer<T> &operator=(const aghContainer<T> &);
 
 private:
-    T *vector; //< Pointer to table that holds vector.
-    unsigned int elements; //< Number of elements in vector.
+    T *vector; /**< Pointer to table that holds vector. */
+    unsigned int elements; /**< Number of elements in vector. */
+    unsigned int vectorSize; /**< Number of memory blocks allocated for vector. */
 
     /**
      * Frees memory allocated for vector.
      */
     void destroyVector();
+
+    /**
+     * Decides if memory should be realloacted.
+     * If it should, it calls reallocMemory().
+     */
+    void changeVectorSize();
+
+    /**
+     * Allocates new memory for vector and copies values.
+     */
+    void reallocMemory(const unsigned int);
 };
 
 // --------------------------------------------------------------------------------
@@ -105,13 +117,13 @@ private:
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghVector<T>::aghVector() : vector(nullptr), elements(0) {
+aghVector<T>::aghVector() : vector(nullptr), elements(0), vectorSize(0) {
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghVector<T>::aghVector(const aghContainer<T> &another) : vector(nullptr), elements(0) {
+aghVector<T>::aghVector(const aghContainer<T> &another) : vector(nullptr), elements(0), vectorSize(0) {
     this->copy(another);
 }
 
@@ -126,18 +138,20 @@ aghVector<T>::~aghVector() {
 
 template<typename T>
 bool aghVector<T>::insert(const int index, const T &newValue) {
-    if (index > this->elements || index < 0)
+    if (index < 0 || index > this->elements)
         return false;
 
-    T *tmp = new T[this->elements + 1];
-
-    for (int i = 0; i < this->elements; ++i)
-        tmp[(i < index ? i : i + 1)] = this->vector[i];
-    tmp[index] = newValue;
-
-    this->destroyVector();
-    this->vector = tmp;
     ++(this->elements);
+
+    try {
+        this->changeVectorSize();
+        for (int i = this->elements; i > index; i--)
+            this->vector[i] = this->vector[i-1];
+        this->vector[index] = newValue;
+    }
+    catch (aghException &e) {
+        --(this->elements);
+    }
 
     return true;
 }
@@ -185,6 +199,7 @@ template<typename T>
 void aghVector<T>::clear() {
     this->destroyVector();
     this->elements = 0;
+    this->vectorSize = 0;
 }
 
 // --------------------------------------------------------------------------------
@@ -222,6 +237,44 @@ void aghVector<T>::destroyVector() {
     if (this->vector)
         delete[] this->vector;
     this->vector = nullptr;
+}
+
+// --------------------------------------------------------------------------------
+
+template<typename T>
+void aghVector<T>::changeVectorSize() {
+    if (this->vectorSize == 0)
+        this->vectorSize = 1;
+
+    if (this->elements >= this->vectorSize ) {
+        this->reallocMemory(this->vectorSize * 2);
+    }
+
+    unsigned int halfSize = this->vectorSize / 2;
+    if (this->elements < halfSize) {
+        this->reallocMemory(halfSize);
+    }
+}
+
+// --------------------------------------------------------------------------------
+
+template<typename T>
+void aghVector<T>::reallocMemory(const unsigned int size) {
+    T* tmp = new T[size];
+    if (!tmp)
+        throw aghException(0, "No memory could be allocated", __FILE__, __LINE__);
+
+    this->vectorSize = size;
+
+    if (this->vector) {
+        for (int i = 0; i < this->elements; ++i)
+            tmp[i] = this->vector[i];
+    }
+
+    delete[] this->vector;
+    this->vector = tmp;
+
+    return;
 }
 
 // --------------------------------------------------------------------------------
