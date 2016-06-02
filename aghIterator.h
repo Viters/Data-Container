@@ -25,32 +25,45 @@
 template<typename T>
 class aghIterator {
 public:
-    first();
-    last();
-    next();
-    prev();
-    current();
-    atFirst();
-    atLast();
-    size();
-    operator=(const aghContainer<T> *);
+    aghIterator();
+    ~aghIterator();
+    aghIterator<T>& first();
+    aghIterator<T>& last();
+    aghIterator<T>& next();
+    aghIterator<T>& prev();
+    T& current();
+    void atFirst();
+    void atLast();
+    int size();
+    aghIterator<T>& operator=(const aghContainer<T> *);
     operator int() const;
     T& operator*();
     T& operator[](int);
-    operator+(int);
-    operator-(int);
-    operator+=(int);
-    operator-=(int);
-    operator++();
-    aghIterator& operator++(int);
-    operator--();
-    operator--(int);
+    aghIterator<T>& operator+(int);
+    agHIterator<T>& operator+=(int);
+    aghIterator<T>& operator-(int);
+    aghIterator<T>& operator-=(int);
+    aghIterator<T>& operator++();
+    aghIterator<T> operator++(int);
+    aghIterator<T>& operator--();
+    aghIterator<T> operator--(int);
     bool operator==(const aghIterator<T> &);
     bool operator!=(const aghIterator<T> &);
 private:
     int position;
-    aghContainer * iter;
+    aghContainer<T> * iter;
 };
 
+template<typename T>
+aghIterator<T>::aghIterator():position(0), iter(nullptr){
+}
+
+template<typename T>
+aghIterator<T>::~aghIterator(){
+    position=0;
+    iter=nullptr;
+}
+
+aghIterator& aghIterator<T>
 
 #endif //DATA_CONTAINER_AGHITERATOR_H
