@@ -180,15 +180,15 @@ bool aghVector<T>::remove(const int index) {
         return false;
 
     --(this->elements);
-    T *tmp = nullptr;
-    if (this->elements > 0)
-        tmp = new T[this->elements];
 
-    for (int i = 0; i < this->elements; i++)
-        tmp[i] = this->vector[(i < index ? i : i + 1)];
-
-    delete[] this->vector;
-    this->vector = tmp;
+    try {
+        this->changeVectorSize();
+        for (int i = index; i < this->elements; i++)
+            this->vector[i] = this->vector[i+1];
+    }
+    catch (aghException &e) {
+        ++(this->elements);
+    }
 
     return true;
 }
@@ -269,9 +269,10 @@ void aghVector<T>::reallocMemory(const unsigned int size) {
     if (this->vector) {
         for (int i = 0; i < this->elements; ++i)
             tmp[i] = this->vector[i];
+
+        delete[] this->vector;
     }
 
-    delete[] this->vector;
     this->vector = tmp;
 
     return;
