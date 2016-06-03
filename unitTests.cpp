@@ -3,8 +3,7 @@
 
 using namespace std;
 
-void showTestResult(int number, bool result)
-{
+void showTestResult(int number, bool result) {
     if (result) {
         cout << "[" << number << "] PASSED\n";
     }
@@ -13,8 +12,7 @@ void showTestResult(int number, bool result)
     }
 }
 
-int main(void)
-{
+int main(void) {
     // -----------------------------------------------
     // ------ aghDlist tests - double-sided list -----
     // -----------------------------------------------
@@ -24,7 +22,7 @@ int main(void)
     aghDlist<aghDlist<int> > a;
     aghContainer<int> *c1 = new aghDlist<int>;
     aghContainer<int> *c2;
-    a << *((aghDlist<int> *)c1);
+    vector3 << *((aghDlist<int> *) c1);
 
     // 1st test - dodawanie do pojemnika stalych, zmiennych, tymczasowych
     c1->append(3);
@@ -48,20 +46,17 @@ int main(void)
     showTestResult(2, t2);
 
     // 3rd test - odwolania
-    try
-    {
+    try {
         c2->at(-1);
         c2->at(100);
         (*c2)[-1];
         (*c2)[100];
         showTestResult(3, false);
     }
-    catch (aghException &e)
-    {
+    catch (aghException &e) {
         showTestResult(3, true);
     }
-    catch (...)
-    {
+    catch (...) {
         showTestResult(3, false);
     }
 
@@ -106,47 +101,43 @@ int main(void)
 
     // 11th test - operacje na pojemniku w pojemniku
     for (int i = 3; i >= 0; i--) {
-        a.at(0) += i + 1;
+        vector3.at(0) += i + 1;
     }
 
-    bool t11 = a.at(0).size() == 4;
+    bool t11 = vector3.at(0).size() == 4;
     int ttab11[] = {4, 3, 2, 1};
     for (int i = 0; t11 && i < 4; i++) {
-        t11 = t11 && (a.at(0).at(i) == ttab11[i]);
+        t11 = t11 && (vector3.at(0).at(i) == ttab11[i]);
     }
     showTestResult(11, t11);
 
     // 12th test - usuwanie z pojemnika
-    a.at(0).remove(2);   // 4,3,1
-    a.at(0).remove(1);   // 4,1
-    a.at(0).remove(1);   // 4
-    a.at(0).remove(0);   // empty
-    showTestResult(12, a.at(0).isEmpty());
+    vector3.at(0).remove(2);   // 4,3,1
+    vector3.at(0).remove(1);   // 4,1
+    vector3.at(0).remove(1);   // 4
+    vector3.at(0).remove(0);   // empty
+    showTestResult(12, vector3.at(0).isEmpty());
 
     // 13th test - dzialanie operatora przypisania
-    *c2 = a.at(0) = *c1;
-    showTestResult(13, *c1 == a.at(0));
+    *c2 = vector3.at(0) = *c1;
+    showTestResult(13, *c1 == vector3.at(0));
 
     // 14th test - operator przypisania
-    try
-    {
+    try {
         *c2 = *c2;
         showTestResult(14, *c1 == *c2);
     }
-    catch (...)
-    {
+    catch (...) {
         showTestResult(14, false);
     }
 
     // 15th test - zwalnianie pamieci
-    try
-    {
+    try {
         delete c1;
         delete c2;
         showTestResult(15, true);
     }
-    catch (...)
-    {
+    catch (...) {
         showTestResult(15, false);
     }
 
@@ -159,7 +150,7 @@ int main(void)
     aghSlist<aghSlist<int> > slist1;
     aghContainer<int> *slistptr1 = new aghSlist<int>;
     aghContainer<int> *slistptr2;
-    slist1 << *((aghSlist<int> *)slistptr1);
+    slist1 << *((aghSlist<int> *) slistptr1);
 
     // 16th test - dodawanie do pojemnika stalych, zmiennych, tymczasowych
     slistptr1->append(3);
@@ -184,16 +175,14 @@ int main(void)
     showTestResult(17, t17);
 
     // 18th test - odwolania
-    try
-    {
+    try {
         slistptr2->at(-1);
         slistptr2->at(100);
         (*slistptr2)[-1];
         (*slistptr2)[100];
         showTestResult(18, false);
     }
-    catch (aghException &e)
-    {
+    catch (aghException &e) {
         showTestResult(18, true);
     }
     catch (...) {
@@ -262,25 +251,21 @@ int main(void)
     showTestResult(28, *slistptr1 == slist1.at(0));
 
     // 29th test - operator przypisania
-    try
-    {
+    try {
         *slistptr2 = *slistptr2;
         showTestResult(29, *slistptr1 == *slistptr2);
     }
-    catch (...)
-    {
+    catch (...) {
         showTestResult(29, false);
     }
 
     // 30th test - zwalnianie pamieci
-    try
-    {
+    try {
         delete slistptr1;
         delete slistptr2;
         showTestResult(30, true);
     }
-    catch (...)
-    {
+    catch (...) {
         showTestResult(30, false);
     }
 
@@ -293,7 +278,7 @@ int main(void)
     aghVector<aghVector<int> > vector1;
     aghContainer<int> *vectorptr1 = new aghVector<int>;
     aghContainer<int> *vectorptr2;
-    vector1 << *((aghVector<int> *)vectorptr1);
+    vector1 << *((aghVector<int> *) vectorptr1);
 
     // 31th test - dodawanie do pojemnika stalych, zmiennych, tymczasowych
     vectorptr1->append(3);
@@ -318,16 +303,14 @@ int main(void)
     showTestResult(32, t32);
 
     // 33th test - odwolania
-    try
-    {
+    try {
         vectorptr2->at(-1);
         vectorptr2->at(100);
         (*vectorptr2)[-1];
         (*vectorptr2)[100];
         showTestResult(33, false);
     }
-    catch (aghException &e)
-    {
+    catch (aghException &e) {
         showTestResult(33, true);
     }
     catch (...) {
@@ -396,27 +379,225 @@ int main(void)
     showTestResult(43, *vectorptr1 == vector1.at(0));
 
     // 44th test - operator przypisania
-    try
-    {
+    try {
         *vectorptr2 = *vectorptr2;
         showTestResult(44, *vectorptr1 == *vectorptr2);
     }
-    catch (...)
-    {
+    catch (...) {
         showTestResult(44, false);
     }
 
     // 45th test - zwalnianie pamieci
-    try
-    {
+    try {
         delete vectorptr1;
         delete vectorptr2;
         showTestResult(45, true);
     }
-    catch (...)
-    {
+    catch (...) {
         showTestResult(45, false);
     }
+
+    // -----------------------------------------------
+    // --- aghIterator tests - container iterators ---
+    // -----------------------------------------------
+
+    cout << "\nTesting aghIterator:\n";
+
+    aghVector<int> vector3, vector4;
+    aghContainer<int> *contptr = &vector3;
+    aghIterator<int> iter1(&vector3), iter2(&vector4), iter3(contptr);
+
+    vector3.append(1);
+    vector3.append(2);
+    vector3.append(3);
+    vector3.append(4);
+    vector3.append(5);
+
+    vector4.append(6);
+    vector4.append(7);
+    vector4.append(8);
+    vector4.append(9);
+    vector4.append(10);
+
+    // 46st test - iterators setting up v1
+    showTestResult(46, iter1.current() == vector3.at(0));
+
+    // 47nd test - iterators setting up v2
+    showTestResult(47, iter2.current() == vector4.at(0));
+
+    // 48rd test - next method
+    iter1.next();
+    showTestResult(48, iter1.current() == vector3.at(1));
+
+    // 49th test - prev method
+    iter2.prev();
+    try {
+        iter2.current();
+        showTestResult(49, false);
+    }
+    catch (aghException &e) {
+        showTestResult(49, true);
+    }
+    catch (...) {
+        showTestResult(49, false);
+    }
+
+    // 50th test - first method
+    showTestResult(50, (iter1.first().current() == vector3.at(0)) && (iter1.current() == vector3.at(1)));
+
+    // 51th test - last method
+    showTestResult(51, (iter3.last().current() == vector3.at(vector3.size() - 1)) && (iter3.current() == vector3.at(0)));
+
+    // 52th test - atFirst method
+    iter1.atFirst();
+    showTestResult(52, iter1.current() == vector3.at(0));
+
+    // 53th test - atLast method
+    iter2.atLast();
+    showTestResult(53, iter2.current() == vector4.at(vector4.size() - 1));
+
+    // 54th method - size method
+    iter3.atFirst();
+    iter3.next().next();
+    showTestResult(54, iter3.size() == (vector3.size() - 2));
+
+    // 55th test - operator []
+    iter3.atFirst();
+    bool t55 = (iter3[2] == vector3.at(2));
+    t55 = t55 && (iter3.current() == vector3.at(0));
+    t55 = t55 && (iter3.next().next()[1] == vector3.at(3));
+    t55 = t55 && (iter3.current() == vector3.at(2));
+    t55 = t55 && (iter3[-1] == vector3.at(1));
+    showTestResult(55, t55);
+
+    // 56th test - operator int
+    iter3.atFirst();
+    iter3.prev();
+    bool t56 = ((int) iter3 == NULL);
+    iter3.next().next().next();
+    t56 = t56 && ((int) iter3 != NULL);
+    iter3.atLast();
+    iter3.next();
+    t56 = t56 && ((int) iter3 == NULL);
+    showTestResult(56, t56);
+
+    // 57th - test operator*
+    iter1.atFirst();
+    bool t57 = (*iter1 == vector3.at(0));
+    t57 = t57 && (*iter1.next().last() == vector3.at(vector3.size() - 1));
+    t57 = t57 && (*iter1 == vector3.at(1));
+    *iter1 += 10;
+    t57 = t57 && (vector3.at(1) == 57);
+    iter1.current() = 2;
+    t57 = t57 && (*iter1 == 2);
+    showTestResult(57, t57);
+
+    // 58th test - operator+
+    iter2.atFirst();
+    bool t58 = (*(iter2 + 2) == vector4.at(2));
+    try {
+        *(iter2.atLast() + 1);
+    }
+    catch (aghException &e) {
+        t58 = t58 && true;
+    }
+    catch (...) {
+        t58 = t58 && false;
+    }
+    showTestResult(58, t58);
+
+    // 59th test - operator-
+    iter2.atLast();
+    bool t59 = (*(iter2 - 3) == vector4.at(1));
+    try {
+        *(iter2.first() - 1);
+    }
+    catch (aghException &e) {
+        t59 = t59 && true;
+    }
+    catch (...) {
+        t59 = t59 && false;
+    }
+    showTestResult(59, t59);
+
+    // 60th test - operator += and -=
+    iter1.atFirst();
+    iter1 += 2;
+    bool t60 = (*iter1 == vector3.at(2));
+    iter1 += 1;
+    t60 = t60 && (*iter1 == vector3.at(3));
+    iter1 -= 3;
+    t60 = t60 && (*iter1 == vector3.at(0));
+    try {
+        iter1 -= 1;
+    }
+    catch (...) {
+        t60 = false;
+    }
+    showTestResult(60, t60);
+
+    // 61th test - operators ++
+    iter3.atFirst();
+    bool t61 = (*iter3++ == contptr->at(0));
+    t61 = t61 && (*iter3 == contptr->at(1));
+    t61 = t61 && (*++iter3 == contptr->at(2));
+    t61 = t61 && (*iter3 == contptr->at(2));
+    showTestResult(61, t61);
+
+    // 62th test - operators --
+    iter3.atLast();
+    bool t62 = (*iter3-- == contptr->at(contptr->size() - 1));
+    t62 = t62 && (*iter3 == contptr->at(contptr->size() - 2));
+    t62 = t62 && (*--iter3 == contptr->at(contptr->size() - 3));
+    t62 = t62 && (*iter3 == contptr->at(contptr->size() - 3));
+    showTestResult(62, t62);
+
+    // 63th test - operator == and !=
+    iter1.atFirst();
+    iter2.atFirst();
+    iter3.atFirst();
+    bool t63 = (iter1 == iter3);
+    t63 = t63 && (iter1 != iter2);
+    t63 = t63 && (iter2 != iter3);
+    t63 = t63 && (iter1 != (iter3 + 1));
+    iter1.next();
+    t63 = t63 && (iter1 == (iter3 + 1));
+    iter2.next();
+    t63 = t63 && (iter1 != iter2);
+    iter1.atFirst();
+    iter3.atLast();
+    t63 = t63 && ((iter1 + 2) == (iter3 - 2));
+    iter3.prev();
+    t63 = t63 && (*(iter1 + 2) == *(iter3 - 1));
+    showTestResult(63, t63);
+
+    // 64th test - operator =
+    iter1.atFirst();
+    iter2.atFirst().next();
+    iter3.atLast();
+    iter1 = iter3;
+    bool t64 = (iter1 == iter3);
+    t64 = t64 && (iter1 != iter2);
+    t64 = t64 && (iter1.size() == 1);
+    iter1 = iter2;
+    t64 = t64 && (iter1 == iter2);
+    t64 = t64 && (*iter1 == vector4.at(1));
+    showTestResult(64, t64);
+
+    // 65th test - operator =
+    iter1.atLast();
+    iter2.atLast();
+    iter3.atLast();
+    bool t65 = (iter1 == iter2);
+    iter1 = contptr;
+    t65 = t65 && (iter1 != iter2);
+    t65 = t65 && (iter1 != iter3);
+    t65 = t65 && (iter1 == iter3.first());
+    t65 = t65 && (*iter1 == vector3.at(0));
+    iter1.atLast();
+    t65 = t65 && (iter1 == iter3);
+    t65 = t65 && (iter1 != iter2);
+    showTestResult(65, t65);
 
     return 0;
 }
