@@ -35,6 +35,7 @@ public:
 
     /**
      * Copy constructor
+     *
      * @param another vector
      */
     aghVector(const aghContainer<T> &);
@@ -46,6 +47,7 @@ public:
 
     /**
      * Insert an element at specified position.
+     *
      * @param position number
      * @param new element
      */
@@ -53,19 +55,23 @@ public:
 
     /**
      * Get element at specified position.
+     *
      * @param position number
      */
     T &at(const int) const;
 
     /**
      * Get size of the container.
+     *
      * @return int size
      */
     int size(void) const;
 
     /**
      * Remove element at specified position.
+     *
      * @param position number
+     *
      * @return bool
      */
     bool remove(const int);
@@ -86,6 +92,7 @@ public:
      * Assignment operator
      *
      * @param another vector
+     *
      * @return reference to the object
      */
     aghContainer<T> &operator=(const aghContainer<T> &);
@@ -117,7 +124,8 @@ private:
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghVector<T>::aghVector() : vector(nullptr), elements(0), vectorSize(0) {
+aghVector<T>::aghVector() : vector(nullptr), elements(0), vectorSize(8) {
+    this->reallocMemory(8);
 }
 
 // --------------------------------------------------------------------------------
