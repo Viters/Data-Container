@@ -10,5 +10,6 @@
 #include "aghVector.h"
 #include "aghSlist.h"
 #include "aghDlist.h"
+#include "aghIterator.h"
 
 #endif //DATA_CONTAINER_AGHINCLUDE_H
