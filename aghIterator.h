@@ -29,6 +29,8 @@ class aghIterator {
 public:
     aghIterator();
 
+    aghIterator(const aghContainer<T> *);
+
     ~aghIterator();
 
     aghIterator<T> &first();
@@ -41,9 +43,9 @@ public:
 
     T &current();
 
-    void atFirst();
+    aghIterator<T> &atFirst();
 
-    void atLast();
+    aghIterator<T> &atLast();
 
     int size();
 
@@ -86,6 +88,12 @@ private:
 
 template<typename T>
 aghIterator<T>::aghIterator() : position(0), iter(nullptr) {
+}
+
+// --------------------------------------------------------------------------------
+
+template<typename T>
+aghIterator<T>::aghIterator(const aghContainer<T> *container) : position(0), iter(nullptr) {
 }
 
 // --------------------------------------------------------------------------------
@@ -134,14 +142,14 @@ T &aghIterator<T>::current() {
 // --------------------------------------------------------------------------------
 
 template<typename T>
-void aghIterator<T>::atFirst() {
+aghIterator<T> &aghIterator<T>::atFirst() {
 
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-void aghIterator<T>::atLast() {
+aghIterator<T> &aghIterator<T>::atLast() {
 
 }
 
