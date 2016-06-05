@@ -22,7 +22,7 @@ int main(void) {
     aghDlist<aghDlist<int> > a;
     aghContainer<int> *c1 = new aghDlist<int>;
     aghContainer<int> *c2;
-    vector3 << *((aghDlist<int> *) c1);
+    a << *((aghDlist<int> *) c1);
 
     // 1st test - dodawanie do pojemnika stalych, zmiennych, tymczasowych
     c1->append(3);
@@ -101,26 +101,26 @@ int main(void) {
 
     // 11th test - operacje na pojemniku w pojemniku
     for (int i = 3; i >= 0; i--) {
-        vector3.at(0) += i + 1;
+        a.at(0) += i + 1;
     }
 
-    bool t11 = vector3.at(0).size() == 4;
+    bool t11 = a.at(0).size() == 4;
     int ttab11[] = {4, 3, 2, 1};
     for (int i = 0; t11 && i < 4; i++) {
-        t11 = t11 && (vector3.at(0).at(i) == ttab11[i]);
+        t11 = t11 && (a.at(0).at(i) == ttab11[i]);
     }
     showTestResult(11, t11);
 
     // 12th test - usuwanie z pojemnika
-    vector3.at(0).remove(2);   // 4,3,1
-    vector3.at(0).remove(1);   // 4,1
-    vector3.at(0).remove(1);   // 4
-    vector3.at(0).remove(0);   // empty
-    showTestResult(12, vector3.at(0).isEmpty());
+    a.at(0).remove(2);   // 4,3,1
+    a.at(0).remove(1);   // 4,1
+    a.at(0).remove(1);   // 4
+    a.at(0).remove(0);   // empty
+    showTestResult(12, a.at(0).isEmpty());
 
     // 13th test - dzialanie operatora przypisania
-    *c2 = vector3.at(0) = *c1;
-    showTestResult(13, *c1 == vector3.at(0));
+    *c2 = a.at(0) = *c1;
+    showTestResult(13, *c1 == a.at(0));
 
     // 14th test - operator przypisania
     try {
