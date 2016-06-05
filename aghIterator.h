@@ -163,7 +163,11 @@ int aghIterator<T>::size() {
 template<typename T>
 aghIterator<T> &aghIterator<T>::operator=(aghContainer<T> *container) {
     this->container = container;
-    this->atFirst();
+    if (this->container->size()!=0)
+        this->atFirst();
+    else
+        this->iter=NULL;
+    return *this;
 }
 
 // --------------------------------------------------------------------------------
