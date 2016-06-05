@@ -33,9 +33,9 @@ public:
 
     ~aghIterator();
 
-    aghIterator<T> &first();
+    aghIterator<T> first();
 
-    aghIterator<T> &last();
+    aghIterator<T> last();
 
     aghIterator<T> &next();
 
@@ -57,11 +57,11 @@ public:
 
     T &operator[](int);
 
-    aghIterator<T> &operator+(int);
+    aghIterator<T> operator+(int);
 
     aghIterator<T> &operator+=(int);
 
-    aghIterator<T> &operator-(int);
+    aghIterator<T> operator-(int);
 
     aghIterator<T> &operator-=(int);
 
@@ -99,7 +99,11 @@ aghIterator<T>::aghIterator() : position(0), iter(nullptr), container(nullptr) {
 
 template<typename T>
 aghIterator<T>::aghIterator(aghContainer<T> *container) : position(0), iter(nullptr), container(container) {
-    this->atFirst();
+    if(container->size()>0)
+        iter = & container->at(0);
+    else
+        iter = nullptr;
+
 }
 
 // --------------------------------------------------------------------------------
@@ -113,30 +117,33 @@ aghIterator<T>::~aghIterator() {
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghIterator<T> &aghIterator<T>::first() {
-    return this->container->at(0);
+aghIterator<T> aghIterator<T>::first() {
+    aghIterator<T> tmp = *this;
+    tmp.setPosition(0);
+    return tmp;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghIterator<T> &aghIterator<T>::last() {
-    int lastPosition = this->container->size() - 1;
-    return this->container->at(lastPosition);
+aghIterator<T> aghIterator<T>::last() {
+    aghIterator<T> tmp = *this;
+    tmp.setPosition(tmp.container->size()-1);
+    return tmp;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 aghIterator<T> &aghIterator<T>::next() {
-    return *this->iter;
+    return ++(*this);
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 aghIterator<T> &aghIterator<T>::prev() {
-    return *this->iter;
+    return --(*this);
 }
 
 // --------------------------------------------------------------------------------
@@ -150,16 +157,16 @@ T &aghIterator<T>::current() {
 
 template<typename T>
 aghIterator<T> &aghIterator<T>::atFirst() {
-    this->position = 0;
-    return this->first();
+    this->setPosition(0);
+    return *this;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 aghIterator<T> &aghIterator<T>::atLast() {
-    this->position = this->container->size() - 1;
-    return this->last();
+    this->setPosition(this->container->size() - 1);
+    return *this;
 }
 
 // --------------------------------------------------------------------------------
@@ -210,7 +217,7 @@ T &aghIterator<T>::operator[](int i) {
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghIterator<T> &aghIterator<T>::operator+(int i) {
+aghIterator<T> aghIterator<T>::operator+(int i) {
     aghIterator<T> tmp=*this;
     tmp.setPosition(this->position+i);
     return tmp;
@@ -226,7 +233,7 @@ aghIterator<T> &aghIterator<T>::operator+=(int i) {
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghIterator<T> &aghIterator<T>::operator-(int i) {
+aghIterator<T> aghIterator<T>::operator-(int i) {
     aghIterator<T> tmp=*this;
     tmp.setPosition(this->position+i);
     return tmp;
@@ -295,7 +302,7 @@ bool aghIterator<T>::operator!=(const aghIterator<T> &iterator) {
 template<typename T>
 void aghIterator<T>::setPosition(int newPosition){
     this->iter = & this->container->at(newPosition);
-    this->posistion = newPosition;
+    this->position = newPosition;
 };
 
 // --------------------------------------------------------------------------------
