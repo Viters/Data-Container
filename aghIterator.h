@@ -79,6 +79,8 @@ private:
     int position;
     aghContainer<T> *container;
     T *iter;
+
+    void setPosition(int);
 };
 
 // --------------------------------------------------------------------------------
@@ -166,7 +168,7 @@ aghIterator<T> &aghIterator<T>::operator=(aghContainer<T> *container) {
     if (this->container->size()!=0)
         this->atFirst();
     else
-        this->iter=NULL;
+        this->iter=nullptr;
     return *this;
 }
 
@@ -174,13 +176,17 @@ aghIterator<T> &aghIterator<T>::operator=(aghContainer<T> *container) {
 
 template<typename T>
 aghIterator<T>::operator int() const {
-    return 0;
+    if(!this->container || !this->iter)
+        return NULL;
+    //TODO: musi cos zwracac w innym przypadku
 }
 
 // --------------------------------------------------------------------------------
 
-template<typename T>
+template<typename T> 
 T &aghIterator<T>::operator*() {
+    if((int)*this == NULL)
+        throw aghException(1, "Iterator is not correct", __FILE__, __LINE__);
     return *this->iter;
 }
 
@@ -188,35 +194,39 @@ T &aghIterator<T>::operator*() {
 
 template<typename T>
 T &aghIterator<T>::operator[](int i) {
-    return *this->iter;
+    return this->container->at(position+i);
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 aghIterator<T> &aghIterator<T>::operator+(int i) {
-    return *this->iter;
+    aghIterator tmp=*this;
+    tmp.setPosition(this->position+i);
+    return tmp;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 aghIterator<T> &aghIterator<T>::operator+=(int i) {
-    return *this->iter;
+    return *this=*this+i;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 aghIterator<T> &aghIterator<T>::operator-(int i) {
-    return *this->iter;
+    aghIterator tmp=*this;
+    tmp.setPosition(this->position+i);
+    return tmp;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 aghIterator<T> &aghIterator<T>::operator-=(int i) {
-    return *this->iter;
+    return *this=*this-i;
 }
 
 // --------------------------------------------------------------------------------
@@ -260,6 +270,14 @@ template<typename T>
 bool aghIterator<T>::operator!=(const aghIterator<T> &iterator) {
     return false;
 }
+
+// --------------------------------------------------------------------------------
+
+template<typename T>
+void aghIterator<T>::setPosition(int newPosition){
+    this->iter = & this->container->at(newPosition);
+    this->posistion = newPosition;
+};
 
 // --------------------------------------------------------------------------------
 
