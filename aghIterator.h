@@ -201,7 +201,7 @@ T &aghIterator<T>::operator[](int i) {
 
 template<typename T>
 aghIterator<T> &aghIterator<T>::operator+(int i) {
-    aghIterator tmp=*this;
+    aghIterator<T> tmp=*this;
     tmp.setPosition(this->position+i);
     return tmp;
 }
@@ -217,7 +217,7 @@ aghIterator<T> &aghIterator<T>::operator+=(int i) {
 
 template<typename T>
 aghIterator<T> &aghIterator<T>::operator-(int i) {
-    aghIterator tmp=*this;
+    aghIterator<T> tmp=*this;
     tmp.setPosition(this->position+i);
     return tmp;
 }
@@ -233,42 +233,51 @@ aghIterator<T> &aghIterator<T>::operator-=(int i) {
 
 template<typename T>
 aghIterator<T> &aghIterator<T>::operator++() {
-    return *this->iter;
+    this->setPosition(position+1);
+    return *this;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 aghIterator<T> aghIterator<T>::operator++(int i) {
-    return aghIterator<T>(this->container);
+    aghIterator<T> tmp=*this;
+    ++(*this);
+    return tmp;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 aghIterator<T> &aghIterator<T>::operator--() {
-    return *this->iter;
+    this->setPosition(position-1);
+    return *this;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 aghIterator<T> aghIterator<T>::operator--(int i) {
-    return aghIterator(this->container);
+    aghIterator<T> tmp;
+    --(*this);
+    return tmp;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 bool aghIterator<T>::operator==(const aghIterator<T> &iterator) {
-    return false;
+    if(this->container == iterator.container && this->iter == iterator.iter && this->position == iterator.position)
+        return true;
+    else
+        return false;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 bool aghIterator<T>::operator!=(const aghIterator<T> &iterator) {
-    return false;
+    return !(*this==iterator);
 }
 
 // --------------------------------------------------------------------------------
