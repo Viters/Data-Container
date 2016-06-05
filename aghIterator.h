@@ -27,6 +27,8 @@
 template<typename T>
 class aghIterator {
 public:
+    aghIterator();
+
     aghIterator(aghContainer<T> *);
 
     ~aghIterator();
@@ -85,6 +87,14 @@ private:
 
 // --------------------------------------------------------------------------------
 // End of aghIterator declaration.
+// --------------------------------------------------------------------------------
+
+// --------------------------------------------------------------------------------
+
+template<typename T>
+aghIterator<T>::aghIterator() : position(0), iter(nullptr), container(nullptr) {
+}
+
 // --------------------------------------------------------------------------------
 
 template<typename T>
