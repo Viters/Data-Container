@@ -215,7 +215,7 @@ aghIterator<T> &aghIterator<T>::operator=(const aghIterator<T> & iterator){
 
 template<typename T>
 aghIterator<T>::operator int() const {
-    if(!this->container /*|| !this->iter*/ || this->position>=this->container->size())
+    if(!this->container /*|| !this->iter*/ || this->position>=this->container->size() || this->position<0)
         return NULL;
     else
         return 1; //(tymczasowe)
