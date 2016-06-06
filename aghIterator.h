@@ -31,6 +31,8 @@ public:
 
     aghIterator(aghContainer<T> *);
 
+    aghIterator(const aghIterator<T>& iterator);
+
     ~aghIterator();
 
     aghIterator<T> first();
@@ -50,6 +52,8 @@ public:
     int size();
 
     aghIterator<T> &operator=(aghContainer<T> *);
+
+    aghIterator<T> &operator=(const aghIterator<T> & iterator);
 
     operator int() const;
 
@@ -104,6 +108,11 @@ aghIterator<T>::aghIterator(aghContainer<T> *container) : position(0), iter(null
     else
         iter = nullptr;
 
+}
+
+// --------------------------------------------------------------------------------
+
+aghIterator(const aghIterator<T>& iterator): container(iterator.container), position(iterator.position), iter(iterator.iter){
 }
 
 // --------------------------------------------------------------------------------
@@ -189,6 +198,14 @@ aghIterator<T> &aghIterator<T>::operator=(aghContainer<T> *container) {
     else
         this->iter=nullptr;
     return *this;
+}
+
+// --------------------------------------------------------------------------------
+
+aghIterator<T> &operator=(const aghIterator<T> & iterator){
+    this->container = iterator.container;
+    this->position = iterator.position;
+    this->iter = iterator.iter; 
 }
 
 // --------------------------------------------------------------------------------
