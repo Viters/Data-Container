@@ -299,7 +299,7 @@ aghIterator<T> &aghIterator<T>::operator--() {
 
 template<typename T>
 aghIterator<T> aghIterator<T>::operator--(int i) {
-    aghIterator<T> tmp;
+    aghIterator<T> tmp=*this;
     --(*this);
     return tmp;
 }
