@@ -1,3 +1,4 @@
+
 /**
  * @file aghIterator.h
  * @author Łukasz Mielczarek, Łukasz Szcześniak
@@ -112,7 +113,8 @@ aghIterator<T>::aghIterator(aghContainer<T> *container) : position(0), iter(null
 
 // --------------------------------------------------------------------------------
 
-aghIterator(const aghIterator<T>& iterator): container(iterator.container), position(iterator.position), iter(iterator.iter){
+template<typename T>
+aghIterator<T>::aghIterator(const aghIterator<T>& iterator): container(iterator.container), position(iterator.position), iter(iterator.iter){
 }
 
 // --------------------------------------------------------------------------------
@@ -202,7 +204,8 @@ aghIterator<T> &aghIterator<T>::operator=(aghContainer<T> *container) {
 
 // --------------------------------------------------------------------------------
 
-aghIterator<T> &operator=(const aghIterator<T> & iterator){
+template<typename T>
+aghIterator<T> &aghIterator<T>::operator=(const aghIterator<T> & iterator){
     this->container = iterator.container;
     this->position = iterator.position;
     this->iter = iterator.iter; 
@@ -322,7 +325,7 @@ bool aghIterator<T>::operator!=(const aghIterator<T> &iterator) {
 
 template<typename T>
 void aghIterator<T>::setPosition(int newPosition){
-    if(newPosition>=0 && newPosition<this->container->size())
+    if(newPosition>=0 && newPosition< (this->container->size()))
         this->iter = & this->container->at(newPosition);
     this->position = newPosition;
 };
