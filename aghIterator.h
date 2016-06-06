@@ -226,9 +226,7 @@ aghIterator<T>::operator int() const {
 
 template<typename T> 
 T &aghIterator<T>::operator*() {
-    if((int)*this == NULL)
-        throw aghException(1, "Iterator is not correct", __FILE__, __LINE__);
-    return this->container->at(position);
+    return this->current();
 }
 
 // --------------------------------------------------------------------------------
