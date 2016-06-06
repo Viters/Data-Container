@@ -487,7 +487,7 @@ int main(void) {
     t57 = t57 && (*iter1.next().last() == vector3.at(vector3.size() - 1));
     t57 = t57 && (*iter1 == vector3.at(1));
     *iter1 += 10;
-    t57 = t57 && (vector3.at(1) == 57);
+    t57 = t57 && (vector3.at(1) == 12); //bylo 57 zamiast 12
     iter1.current() = 2;
     t57 = t57 && (*iter1 == 2);
     showTestResult(57, t57);
