@@ -150,7 +150,9 @@ aghIterator<T> &aghIterator<T>::prev() {
 
 template<typename T>
 T &aghIterator<T>::current() {
-    return *this->iter;
+    if((int)*this == NULL)
+        throw aghException(1, "Access to wrong element demanded", __FILE__, __LINE__);
+    return this->container->at(position);
 }
 
 // --------------------------------------------------------------------------------
@@ -173,7 +175,7 @@ aghIterator<T> &aghIterator<T>::atLast() {
 
 template<typename T>
 int aghIterator<T>::size() {
-    int size = this->container->size() - 1;
+    int size = this->container->size();
     return size - this->position;
 }
 
@@ -193,8 +195,10 @@ aghIterator<T> &aghIterator<T>::operator=(aghContainer<T> *container) {
 
 template<typename T>
 aghIterator<T>::operator int() const {
-    if(!this->container || !this->iter)
+    if(!this->container /*|| !this->iter*/ || this->position>=this->container->size())
         return NULL;
+    else
+        return 1; //(tymczasowe)
     //TODO: musi cos zwracac w innym przypadku
 }
 
@@ -204,7 +208,7 @@ template<typename T>
 T &aghIterator<T>::operator*() {
     if((int)*this == NULL)
         throw aghException(1, "Iterator is not correct", __FILE__, __LINE__);
-    return *this->iter;
+    return this->container->at(position);
 }
 
 // --------------------------------------------------------------------------------
@@ -301,7 +305,8 @@ bool aghIterator<T>::operator!=(const aghIterator<T> &iterator) {
 
 template<typename T>
 void aghIterator<T>::setPosition(int newPosition){
-    this->iter = & this->container->at(newPosition);
+    if(newPosition>=0 && newPosition<this->container->size())
+        this->iter = & this->container->at(newPosition);
     this->position = newPosition;
 };
 
