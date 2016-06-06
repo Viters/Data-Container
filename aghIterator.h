@@ -259,7 +259,7 @@ aghIterator<T> &aghIterator<T>::operator+=(int i) {
 template<typename T>
 aghIterator<T> aghIterator<T>::operator-(int i) {
     aghIterator<T> tmp=*this;
-    tmp.setPosition(this->position+i);
+    tmp.setPosition(this->position-i);
     return tmp;
 }
 
