@@ -349,6 +349,7 @@ template<typename T>
 aghIterator<T> &aghIterator<T>::operator=(const aghIterator<T> &iterator) {
     this->container = iterator.container;
     this->setPosition(iterator.position);
+    return *this;
 }
 
 // --------------------------------------------------------------------------------
