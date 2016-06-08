@@ -1,9 +1,8 @@
-
 /**
  * @file aghIterator.h
  * @author Łukasz Mielczarek, Łukasz Szcześniak
  * @date 01/06/2016
- * @version 0.2
+ * @version 0.8
  * @brief Contains declaration and definitions of aghIterator template class.
 */
 
@@ -21,72 +20,219 @@
  *
  * @author Łukasz Mielczarek, Łukasz Szcześniak
  *
- * @version 0.2
+ * @version 0.8
  *
  * @date 01/06/2016
  */
 template<typename T>
 class aghIterator {
 public:
+    /**
+     * Default constructor.
+     */
     aghIterator();
 
+    /**
+     * Parametric constructor. Creates iterator pointing at given container.
+     *
+     * @param container
+     */
     aghIterator(aghContainer<T> *);
 
-    aghIterator(const aghIterator<T>& iterator);
+    /**
+     * Copy constructor.
+     *
+     * @param another iterator
+     */
+    aghIterator(const aghIterator<T> &iterator);
 
+    /**
+     * Destructor.
+     */
     ~aghIterator();
 
+    /**
+     * Returns new iterator pointing to first element of container.
+     *
+     * @return aghIterator
+     */
     aghIterator<T> first();
 
+    /**
+     * Returns new iterator pointing to last element of container.
+     *
+     * @return aghIterator
+     */
     aghIterator<T> last();
 
+    /**
+     * Sets iterator to next element and returns it.
+     *
+     * @return reference to aghIterator
+     */
     aghIterator<T> &next();
 
+    /**
+     * Sets iterator to previous element and returns it.
+     *
+     * @return reference to aghIterator
+     */
     aghIterator<T> &prev();
 
+    /**
+     * Returns element currently pointed at by iterator.
+     *
+     * @return reference to T element
+     */
     T &current();
 
+    /**
+     * Sets iterator to first element and returns it.
+     *
+     * @return reference to aghIterator
+     */
     aghIterator<T> &atFirst();
 
+    /**
+     * Sets iterator to last element and returns it.
+     *
+     * @return reference to aghIterator
+     */
     aghIterator<T> &atLast();
 
+    /**
+     * Counts how many elements are left before container ends.
+     *
+     * @return number of elements left
+     */
     int size();
 
+    /**
+     * Set container at which iterator points.
+     *
+     * @return reference to aghIterator
+     */
     aghIterator<T> &operator=(aghContainer<T> *);
 
-    aghIterator<T> &operator=(const aghIterator<T> & iterator);
+    /**
+     * Copies provided iterator.
+     *
+     * @return reference to aghIterator
+     */
+    aghIterator<T> &operator=(const aghIterator<T> &iterator);
 
+    /**
+     * Checks if iterator has attached container and position is within
+     * this container's size.
+     *
+     * @return:
+     *  @li 1 if iterator is OK
+     *  @li NULL if something is wrong
+     */
     operator int() const;
 
+    /**
+     * Returns element at which iterator is pointing.
+     *
+     * @return reference to T element
+     */
     T &operator*();
 
+    /**
+     * Returns element positioned [index] elements further than
+     * current iterator position.
+     *
+     * @param number of elements to pass through
+     *
+     * @return reference to T element
+     */
     T &operator[](int);
 
+    /**
+     * Returns new iterator advanced by given number.
+     *
+     * @param number of elements to advance
+     *
+     * @return aghIterator
+     */
     aghIterator<T> operator+(int);
 
+    /**
+     * Advances iterator by given number.
+     *
+     * @param number of elements to advance
+     *
+     * @return reference to aghIterator
+     */
     aghIterator<T> &operator+=(int);
 
+    /**
+     * Returns new iterator reversed by given number.
+     *
+     * @param number of elements to reverses
+     *
+     * @return aghIterator
+     */
     aghIterator<T> operator-(int);
 
+    /**
+     * Reverses iterator by given number.
+     *
+     * @param number of elements to reverse
+     *
+     * @return reference to aghIterator
+     */
     aghIterator<T> &operator-=(int);
 
+    /**
+     * Advances iterator by one element.
+     *
+     * @return reference to advanced aghIterator
+     */
     aghIterator<T> &operator++();
 
+    /**
+     * Advances iterator by one element.
+     *
+     * @return not advanced aghIterator
+     */
     aghIterator<T> operator++(int);
 
+    /**
+     * Reverses iterator by one element.
+     *
+     * @return reference to reversed aghIterator
+     */
     aghIterator<T> &operator--();
 
+    /**
+     * Reverses iterator by one element.
+     *
+     * @return not reversed aghIterator
+     */
     aghIterator<T> operator--(int);
 
+    /**
+     * Checks if two iterators are exactly the same.
+     *
+     * @return true if containers are the same, false otherwise
+     */
     bool operator==(const aghIterator<T> &);
 
+    /**
+     * Checks if two iterators are different.
+     *
+     * @return true if containers are different, false otherwise
+     */
     bool operator!=(const aghIterator<T> &);
 
 private:
-    int position;
-    aghContainer<T> *container;
-    T *iter;
+    int position; /**< Number of element iterator at which iterator is pointing. */
+    aghContainer<T> *container; /**< Container at which iterator is poiting. */
 
+    /**
+     * Sets iterator position.
+     */
     void setPosition(int);
 };
 
@@ -97,24 +243,20 @@ private:
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghIterator<T>::aghIterator() : position(0), iter(nullptr), container(nullptr) {
+aghIterator<T>::aghIterator() : position(0), container(nullptr) {
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghIterator<T>::aghIterator(aghContainer<T> *container) : position(0), iter(nullptr), container(container) {
-    if(container->size()>0)
-        iter = & container->at(0);
-    else
-        iter = nullptr;
-
+aghIterator<T>::aghIterator(aghContainer<T> *container) : position(0), container(container) {
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghIterator<T>::aghIterator(const aghIterator<T>& iterator): container(iterator.container), position(iterator.position), iter(iterator.iter){
+aghIterator<T>::aghIterator(const aghIterator<T> &iterator) : container(iterator.container),
+                                                              position(iterator.position) {
 }
 
 // --------------------------------------------------------------------------------
@@ -122,7 +264,6 @@ aghIterator<T>::aghIterator(const aghIterator<T>& iterator): container(iterator.
 template<typename T>
 aghIterator<T>::~aghIterator() {
     position = 0;
-    iter = nullptr;
 }
 
 // --------------------------------------------------------------------------------
@@ -139,7 +280,7 @@ aghIterator<T> aghIterator<T>::first() {
 template<typename T>
 aghIterator<T> aghIterator<T>::last() {
     aghIterator<T> tmp = *this;
-    tmp.setPosition(tmp.container->size()-1);
+    tmp.setPosition(tmp.container->size() - 1);
     return tmp;
 }
 
@@ -161,7 +302,7 @@ aghIterator<T> &aghIterator<T>::prev() {
 
 template<typename T>
 T &aghIterator<T>::current() {
-    if((int)*this == NULL)
+    if ((int) *this == NULL)
         throw aghException(1, "Access to wrong element demanded", __FILE__, __LINE__);
     return this->container->at(position);
 }
@@ -195,36 +336,32 @@ int aghIterator<T>::size() {
 template<typename T>
 aghIterator<T> &aghIterator<T>::operator=(aghContainer<T> *container) {
     this->container = container;
-    if (this->container->size()!=0)
+    if (this->container->size() != 0)
         this->atFirst();
-    else
-        this->iter=nullptr;
     return *this;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-aghIterator<T> &aghIterator<T>::operator=(const aghIterator<T> & iterator){
+aghIterator<T> &aghIterator<T>::operator=(const aghIterator<T> &iterator) {
     this->container = iterator.container;
-    this->position = iterator.position;
-    this->iter = iterator.iter; 
+    this->setPosition(iterator.position);
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 aghIterator<T>::operator int() const {
-    if(!this->container /*|| !this->iter*/ || this->position>=this->container->size() || this->position<0)
+    if (!this->container || this->position >= this->container->size() || this->position < 0)
         return NULL;
     else
-        return 1; //(tymczasowe)
-    //TODO: musi cos zwracac w innym przypadku
+        return 1;
 }
 
 // --------------------------------------------------------------------------------
 
-template<typename T> 
+template<typename T>
 T &aghIterator<T>::operator*() {
     return this->current();
 }
@@ -233,15 +370,15 @@ T &aghIterator<T>::operator*() {
 
 template<typename T>
 T &aghIterator<T>::operator[](int i) {
-    return this->container->at(position+i);
+    return this->container->at(position + i);
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 aghIterator<T> aghIterator<T>::operator+(int i) {
-    aghIterator<T> tmp=*this;
-    tmp.setPosition(this->position+i);
+    aghIterator<T> tmp = *this;
+    tmp.setPosition(this->position + i);
     return tmp;
 }
 
@@ -249,15 +386,15 @@ aghIterator<T> aghIterator<T>::operator+(int i) {
 
 template<typename T>
 aghIterator<T> &aghIterator<T>::operator+=(int i) {
-    return *this=*this+i;
+    return *this = *this + i;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 aghIterator<T> aghIterator<T>::operator-(int i) {
-    aghIterator<T> tmp=*this;
-    tmp.setPosition(this->position-i);
+    aghIterator<T> tmp = *this;
+    tmp.setPosition(this->position - i);
     return tmp;
 }
 
@@ -265,14 +402,14 @@ aghIterator<T> aghIterator<T>::operator-(int i) {
 
 template<typename T>
 aghIterator<T> &aghIterator<T>::operator-=(int i) {
-    return *this=*this-i;
+    return *this = *this - i;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 aghIterator<T> &aghIterator<T>::operator++() {
-    this->setPosition(position+1);
+    this->setPosition(position + 1);
     return *this;
 }
 
@@ -280,7 +417,7 @@ aghIterator<T> &aghIterator<T>::operator++() {
 
 template<typename T>
 aghIterator<T> aghIterator<T>::operator++(int i) {
-    aghIterator<T> tmp=*this;
+    aghIterator<T> tmp = *this;
     ++(*this);
     return tmp;
 }
@@ -289,7 +426,7 @@ aghIterator<T> aghIterator<T>::operator++(int i) {
 
 template<typename T>
 aghIterator<T> &aghIterator<T>::operator--() {
-    this->setPosition(position-1);
+    this->setPosition(position - 1);
     return *this;
 }
 
@@ -297,7 +434,7 @@ aghIterator<T> &aghIterator<T>::operator--() {
 
 template<typename T>
 aghIterator<T> aghIterator<T>::operator--(int i) {
-    aghIterator<T> tmp=*this;
+    aghIterator<T> tmp = *this;
     --(*this);
     return tmp;
 }
@@ -306,25 +443,22 @@ aghIterator<T> aghIterator<T>::operator--(int i) {
 
 template<typename T>
 bool aghIterator<T>::operator==(const aghIterator<T> &iterator) {
-    if(this->container == iterator.container && this->iter == iterator.iter && this->position == iterator.position)
-        return true;
-    else
-        return false;
+    bool sameContainer = (this->container == iterator.container);
+    bool samePosition = (this->position == iterator.position);
+    return sameContainer && samePosition;
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
 bool aghIterator<T>::operator!=(const aghIterator<T> &iterator) {
-    return !(*this==iterator);
+    return !(*this == iterator);
 }
 
 // --------------------------------------------------------------------------------
 
 template<typename T>
-void aghIterator<T>::setPosition(int newPosition){
-    if(newPosition>=0 && newPosition< (this->container->size()))
-        this->iter = & this->container->at(newPosition);
+void aghIterator<T>::setPosition(int newPosition) {
     this->position = newPosition;
 };
 
