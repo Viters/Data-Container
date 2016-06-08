@@ -229,7 +229,7 @@ void aghVector<T>::copy(const aghContainer<T> &source) {
         this->clear();
 
     this->elements = source.size();
-    this->reallocMemory(source.size());
+    this->changeVectorSize();
 
     for (int i = 0; i < this->elements; ++i)
         this->vector[i] = source.at(i);
